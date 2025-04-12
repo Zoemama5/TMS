@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TMS Layout (Tailwind)</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome for icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+
+  <!-- Alpine.js for interactivity -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="bg-gray-400 min-h-screen font-sans">
+
+  <!-- Header Section -->
+  <div class="container mx-auto px-6 py-8">
+    <div class="flex justify-between items-center mb-8">
+      <div class="text-4xl font-bold text-black">TimeWise</div>
+      <div>
+        <button class="bg-black text-white px-6 py-2 rounded-full font-semibold mr-2 hover:bg-gray-800 transition transform hover:-translate-y-1 shadow">
+          LOGIN
+        </button>
+        <button class="bg-gray-300 text-gray-800 px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition transform hover:-translate-y-1 shadow">
+          GET STARTED
+        </button>
+      </div>
+    </div>
+
+    <!-- Model Section with Tagline -->
+    <div class="rounded-xl bg-white/10 backdrop-blur-md shadow-lg p-8">
+      <div class="mb-8 max-w-xl">
+        <p class="text-white text-2xl font-light leading-relaxed">
+          Helps you organize, track, and prioritize tasks for better workflow and productivity.
+        </p>
+        <button class="mt-6 bg-white/20 text-white border border-white px-6 py-2 rounded-full font-medium hover:bg-white hover:text-gray-900 transition transform hover:-translate-y-1 shadow">
+          SEE HOW IT WORKS <i class="fas fa-arrow-right ml-2"></i>
+        </button>
+      </div>
+
+      <!-- Feature Carousel -->
+      <div x-data="{ currentSlide: 0 }" class="mt-12 relative">
+        <!-- Top Carousel Controls -->
+        <div class="flex justify-end mb-4 space-x-2">
+          <button @click="currentSlide = (currentSlide === 0 ? 2 : currentSlide - 1)" class="bg-black/50 text-white w-10 h-10 flex items-center justify-center rounded-full hover:bg-black transition transform hover:-translate-y-1">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button @click="currentSlide = (currentSlide === 2 ? 0 : currentSlide + 1)" class="bg-black/50 text-white w-10 h-10 flex items-center justify-center rounded-full hover:bg-black transition transform hover:-translate-y-1">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+
+        <!-- Slides -->
+        <div class="overflow-hidden">
+          <div class="flex transition-transform duration-500" :style="`transform: translateX(-${currentSlide * 100}%);`" style="width: 300%">
+            <!-- Slide 1 -->
+            <div class="flex space-x-4 w-full px-1 shrink-0" style="width: 100%">
+              <template x-for="feature in [
+                { icon: 'fa-tasks', title: 'Task Organization', desc: 'Create, categorize, and manage tasks with our intuitive drag-and-drop interface.' },
+                { icon: 'fa-chart-line', title: 'Progress Tracking', desc: 'Monitor your progress with visual metrics and comprehensive reporting.' },
+                { icon: 'fa-clock', title: 'Smart Prioritization', desc: 'Let our AI suggest task priorities based on deadlines and importance.' }
+              ]">
+                <div class="bg-white/10 rounded-lg p-6 text-white min-h-[250px] hover:-translate-y-1 hover:shadow-xl transition">
+                  <div class="text-2xl mb-3">
+                    <i :class="`fas ${feature.icon}`"></i>
+                  </div>
+                  <h3 class="font-semibold text-lg mb-2" x-text="feature.title"></h3>
+                  <p class="text-sm text-white/80" x-text="feature.desc"></p>
+                </div>
+              </template>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="flex space-x-4 w-full px-1 shrink-0" style="width: 100%">
+              <template x-for="feature in [
+                { icon: 'fa-users', title: 'Team Collaboration', desc: 'Work together with your team in real-time with seamless collaboration tools.' },
+                { icon: 'fa-bell', title: 'Smart Notifications', desc: 'Stay on top of your tasks with intelligent reminders and notifications.' },
+                { icon: 'fa-sync-alt', title: 'App Integration', desc: 'Connect with your favorite apps and tools for a seamless workflow.' }
+              ]">
+                <div class="bg-white/10 rounded-lg p-6 text-white min-h-[250px] hover:-translate-y-1 hover:shadow-xl transition">
+                  <div class="text-2xl mb-3">
+                    <i :class="`fas ${feature.icon}`"></i>
+                  </div>
+                  <h3 class="font-semibold text-lg mb-2" x-text="feature.title"></h3>
+                  <p class="text-sm text-white/80" x-text="feature.desc"></p>
+                </div>
+              </template>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="flex space-x-4 w-full px-1 shrink-0" style="width: 100%">
+              <template x-for="feature in [
+                { icon: 'fa-calendar-alt', title: 'Calendar View', desc: 'Plan your schedule with daily, weekly, and monthly calendar views.' },
+                { icon: 'fa-mobile-alt', title: 'Mobile Access', desc: 'Access your tasks anytime, anywhere with our mobile app.' },
+                { icon: 'fa-shield-alt', title: 'Secure Storage', desc: 'Keep your data safe with enterprise-grade security and encryption.' }
+              ]">
+                <div class="bg-white/10 rounded-lg p-6 text-white min-h-[250px] hover:-translate-y-1 hover:shadow-xl transition">
+                  <div class="text-2xl mb-3">
+                    <i :class="`fas ${feature.icon}`"></i>
+                  </div>
+                  <h3 class="font-semibold text-lg mb-2" x-text="feature.title"></h3>
+                  <p class="text-sm text-white/80" x-text="feature.desc"></p>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+
+        <!-- Indicators -->
+        <div class="flex justify-center mt-6 space-x-2">
+          <template x-for="i in 3">
+            <button @click="currentSlide = i - 1" :class="currentSlide === (i - 1) ? 'bg-white' : 'bg-white/50'" class="w-3 h-3 rounded-full"></button>
+          </template>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
