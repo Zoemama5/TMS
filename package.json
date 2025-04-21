@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "mongoose": "^8.13.2",
     "tailwind": "^4.0.0",
     "tailwindcss": "^4.1.3"
   }

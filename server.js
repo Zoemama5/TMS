@@ -4,6 +4,7 @@ const app = express();
 
 // Serve static assets (CSS, JS, images)
 app.use(express.static(path.join(__dirname, 'src/presentation/static/assets')));
+app.use(bodyParser.json());
 
 // Serve the main HTML file from the 'views' folder
 app.get('/', (req, res) => {
@@ -15,6 +16,17 @@ app.get('/', (req, res) => {
     }
   });
 });
+
+// JWT AUTH
+const jwt = require('jsonwebtoken');
+
+app.post('/login', (req,res) => {
+  const { username, password} = req.body;
+
+  if (username, password){}
+
+});
+
 
 // Start the server
 const PORT = 3000;
