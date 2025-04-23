@@ -1,0 +1,97 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login Page</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-[#f5f5f5] min-h-screen flex items-center justify-center">
+  <div class="flex flex-col md:flex-row w-full max-w-7xl bg-[#f5f5f5]">
+    <!-- Left side -->
+    <div class="bg-white md:w-1/2 px-10 md:px-20 py-16 flex flex-col justify-start">
+      <a href="#" class="text-[#2e56ff] font-bold text-lg mb-20 inline-block">Digital</a>
+      <h1 class="text-[#2e56ff] font-extrabold text-3xl md:text-4xl leading-snug mb-4">
+        Artificial Intelligence Driving<br />
+        Results For The Travel Industry
+      </h1>
+      <p class="text-gray-600 mb-8 text-sm md:text-base">
+        Welcome back! Please login to your account.
+      </p>
+      <form class="w-full max-w-md">
+        <label class="flex items-center text-[#2e56ff] text-xs font-semibold mb-1">
+          <i class="fas fa-gem mr-1"></i>Em<span class="hidden">a</span>i section
+        </label>
+        <input
+          type="email"
+          placeholder="Email Address"
+          value=""
+          class="w-full border border-gray-300 focus:border-[#2e56ff] focus:ring-0 focus:outline-none px-3 py-2 mb-0.5 text-sm"
+        />
+        <a href="#" class="text-[#2e56ff] text-xs font-semibold mb-4 block ml-1"></a>
+        <input
+          type="password"
+          placeholder="Password"
+          value=""
+          class="w-full border border-t-0 border-gray-300 focus:border-[#2e56ff] focus:ring-0 focus:outline-none px-3 py-2 text-sm"
+        />
+        <a href="#" class="text-[#2e56ff] text-xs font-semibold block ml-1 mt-1 mb-6"></a>
+        <div class="flex justify-between items-center mb-10 text-gray-600 text-xs">
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" class="w-3 h-3 border border-gray-300" />
+            <span>Remember Me</span>
+          </label>
+          <a href="#" class="hover:underline">Forgot Password?</a>
+        </div>
+        <div class="flex space-x-6 mb-10">
+          <button
+            type="submit"
+            class="bg-[#2e56ff] text-white px-8 py-3 shadow-md shadow-[#2e56ff]/40 font-semibold text-sm"
+          >
+            Login
+          </button>
+            <a
+            type="button"
+            class="border border-[#2e56ff] text-[#2e56ff] px-6 py-3 font-semibold text-sm"
+            data-bs-toggle="offcanvas" data-bs-target="#offcanvasCreateAccount" aria-controls="offcanvasCreateAccount">
+            Sign Up
+            </a>
+        </div>
+      </form>
+      <div class="flex items-center space-x-2 text-gray-600 text-xs mb-2">
+        <span>Or login with</span>
+      </div>
+      <div class="flex space-x-10 text-[#2e56ff] font-semibold text-xs">
+        <a href="#" class="hover:underline">Facebook</a>
+        <a href="#" class="hover:underline">LinkedIn</a>
+        <a href="#" class="hover:underline">Google</a>
+      </div>
+    </div>
+    <!-- Right side -->
+    <div class="hidden md:flex md:w-1/2 items-center justify-center relative bg-[#f5f5f5]">
+      <nav class="absolute top-10 right-10 flex space-x-10 text-gray-600 text-sm font-normal">
+        <a href="#" class="border-b-2 border-[#2e56ff] pb-1">Home</a>
+        <a href="#" class="hover:underline">About us</a>
+        <a href="#" class="hover:underline">Blog</a>
+        <a href="#" class="hover:underline">Pricing</a>
+      </nav>
+      <img
+        src="https://placehold.co/400x300/png?text=Man+riding+bicycle+with+envelope+on+back"
+        alt="Illustration of a man wearing a yellow cap riding a bicycle with a large white envelope on the back"
+        class="max-w-full max-h-[300px]"
+        width="400"
+        height="300"
+      />
+    </div>
+  </div>
+</body>
+</html>
