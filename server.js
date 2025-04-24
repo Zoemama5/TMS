@@ -2,7 +2,10 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
+
+//Database
 const mongoose = require('mongoose');
+const mysql = require('mysql2/promise');
 const app = express();
 
 // Paths
@@ -18,7 +21,7 @@ app.use(bodyParser.json());
 app.set('view engine', 'ejs');
 app.set('views', viewsPath);
 
-
+//Database connection
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -26,6 +29,24 @@ mongoose.connect(uri, {
 .then(() => console.log('Connected to MongoDB'))
 .catch((err) => console.error('MongoDB connection error:', err));
 
+
+
+async function connectToMySQL() {
+  try {
+    const connection = await mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: 'password',
+      database: 'tms'
+    });
+
+    console.log('Connected to MySQL');
+    // You can use `connection` here to run queries
+  } catch (err) {
+    console.error('MySQL connection error:', err);
+  }
+}
+connectToMySQL();
 // Routes
 app.get('/', (req, res) => {
   res.sendFile(path.join(viewsPath, 'index.html'));
