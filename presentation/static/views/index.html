@@ -13,6 +13,7 @@
 
   <!-- Alpine.js for Carousel -->
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body class="bg-gray-400 min-h-screen font-sans">
 
@@ -142,7 +143,7 @@
         <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
           Create an account
         </h1>
-        <form class="space-y-4 md:space-y-6" action="#">
+        <form class="space-y-4 md:space-y-6" id="RegistrationForm">
           <div>
             <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
             <input type="email" name="email" id="email" required placeholder="name@company.com"
@@ -179,45 +180,90 @@
   </div>
   <!-- Modal JS -->
   <script>
-    const openModalBtn = document.getElementById('openModalBtn');
-    const modalOverlay = document.getElementById('modalOverlay');
-    const modalContent = document.getElementById('modalContent');
-    const closeModalBtn = document.getElementById('closeModalBtn');
-  
-    openModalBtn.addEventListener('click', () => {
-      setTimeout(() => {
-        modalOverlay.classList.remove('hidden');
-  
-        // animate modal content
-        requestAnimationFrame(() => {
-          modalContent.classList.remove('opacity-0', 'scale-95');
-          modalContent.classList.add('opacity-100', 'scale-100');
-        });
-      }, 100); // 500ms delay
-    });
-  
-    closeModalBtn.addEventListener('click', () => {
-      closeModal();
-    });
-
-      modalOverlay.addEventListener('click', (e) => {
-      if (e.target === modalOverlay) {
-        closeModal();
-      }
-    });
+      const openModalBtn = document.getElementById('openModalBtn');
+      const modalOverlay = document.getElementById('modalOverlay');
+      const modalContent = document.getElementById('modalContent');
+      const closeModalBtn = document.getElementById('closeModalBtn');
     
-    function closeModal() {
-      modalContent.classList.add('opacity-0', 'scale-95');
-      modalContent.classList.remove('opacity-100', 'scale-100');
-      setTimeout(() => {
-        modalOverlay.classList.add('hidden');
-      }, 300); // match transition duration
-    }
-    // Form submission mock
-    document.getElementById('registrationForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      alert('Registration successful!');
-      closeModalBtn.click();
+      openModalBtn.addEventListener('click', () => {
+        setTimeout(() => {
+          modalOverlay.classList.remove('hidden');
+    
+          // animate modal content
+          requestAnimationFrame(() => {
+            modalContent.classList.remove('opacity-0', 'scale-95');
+            modalContent.classList.add('opacity-100', 'scale-100');
+          });
+        }, 100); // 500ms delay
+      });
+    
+      closeModalBtn.addEventListener('click', () => {
+        closeModal();
+      });
+
+        modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) {
+          closeModal();
+        }
+      });
+      
+      function closeModal() {
+        modalContent.classList.add('opacity-0', 'scale-95');
+        modalContent.classList.remove('opacity-100', 'scale-100');
+        setTimeout(() => {
+          modalOverlay.classList.add('hidden');
+        }, 300); // match transition duration
+      }
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modalOverlay.classList.contains('hidden')) {
+          closeModal();
+        }
+      });
+     
+
+      //Register Function 
+      document.getElementById("RegistrationForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const formData = new FormData(this);
+        const password = formData.get('password');
+        const confirmpassword = formData.get('confirm-password');
+        if (password == confirmpassword){
+        fetch('/register-action', {
+          method: 'POST',
+          body: new URLSearchParams(formData),
+          headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success){
+             Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: data.message,
+                }).then(() => {
+                  closeModalBtn.click(); // Redirect after success
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: data.message,
+                });
+            }
+        })
+        .catch(error => console.error('Error-Message:', error));
+        }
+        else{
+          Swal.fire({
+            icon: 'Error',
+            title: 'Password Error',
+            text:  'Password and Confirm Password do not match'
+          })
+        }
     });
   </script>
   

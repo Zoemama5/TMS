@@ -2,10 +2,10 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
-
+const bcrypt = require('bcryptjs');
 //Database
 const mongoose = require('mongoose');
-const mysql = require('mysql2/promise');
+const mysql = require('mysql2');
 const app = express();
 
 // Paths
@@ -16,6 +16,8 @@ const assetsPath = path.join(__dirname, 'src/presentation/static/assets');
 // Middleware
 app.use(express.static(assetsPath));
 app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // View engine setup (EJS)
 app.set('view engine', 'ejs');
@@ -30,23 +32,21 @@ mongoose.connect(uri, {
 .catch((err) => console.error('MongoDB connection error:', err));
 
 
+const database = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'password', // your MySQL password
+  database: 'tms'
+});
 
-async function connectToMySQL() {
-  try {
-    const connection = await mysql.createConnection({
-      host: 'localhost',
-      user: 'root',
-      password: 'password',
-      database: 'tms'
-    });
-
-    console.log('Connected to MySQL');
-    // You can use `connection` here to run queries
-  } catch (err) {
-    console.error('MySQL connection error:', err);
+database.connect((err) => {
+  if (err) {
+      console.error('Error connecting to the database:', err);
+      return;
   }
-}
-connectToMySQL();
+  console.log('Connected to the MySQL database');
+});
+
 // Routes
 app.get('/', (req, res) => {
   res.sendFile(path.join(viewsPath, 'index.html'));
@@ -56,6 +56,31 @@ app.get('/login-page', (req, res) => {
   res.render('login-page'); 
   console.log('GET /login-page hit!');
 });
+
+
+app.post('/register-action', (req, res) => {
+  const { email, password, confirmPassword } = req.body;
+
+
+
+  bcrypt.hash(password, 10, (err, hash) => {
+      if (err) {
+          console.log("Hashing error:", err);
+          return res.json({ success: false, message: "Error hashing password" });
+      }
+
+      database.query('INSERT INTO users (email, password) VALUES (?, ?)', 
+          [email, hash], 
+          (err, result) => {
+              if (err) {
+                  console.log("Database error:", err); // Log the error
+                  return res.json({ success: false, message: "Error registering user" });
+              }
+              return res.json({ success: true, message: "User registered successfully!" });
+          }
+      );
+  });
+})
 
 // Example JWT Auth route 
 /*
