@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
+const secretKey = 'humprey-pogi';
 const bcrypt = require('bcryptjs');
 //Database
 const mongoose = require('mongoose');
@@ -82,10 +83,42 @@ app.post('/register-action', (req, res) => {
   });
 })
 
-app.post('/update-action', (req, res) => {
-  const { }
-});
+app.post('/login-action', (req, res) => {
+  const { email, password } = req.body;
 
+  database.query('SELECT * FROM users WHERE email = ?', [email], (err, results) => {
+    if (err) {
+      console.log("Database error:", err);
+      return res.json({ success: false, message: "Database error" });
+    }
+
+    if (results.length === 0) {
+      return res.json({ success: false, message: "User not found" });
+    }
+
+    const user = results[0];
+
+    bcrypt.compare(password, user.password, (err, isMatch) => {
+      if (err) {
+        console.log("Comparison error:", err);
+        return res.json({ success: false, message: "Error checking password" });
+      }
+
+      if (!isMatch) {
+        return res.json({ success: false, message: "Incorrect password" });
+      }
+
+      // Password matched, create JWT token
+      const token = jwt.sign(
+        { id: user.id, email: user.email }, // Payload
+        secretKey,                         // Secret key
+        { expiresIn: '1h' }                 // Token expiry
+      );
+
+      return res.json({ success: true, message: "Login successful!", token });
+    });
+  });
+});
 // Example JWT Auth route 
 /*
 app.post('/login', (req, res) => {
