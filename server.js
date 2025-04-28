@@ -119,6 +119,11 @@ app.post('/login-action', (req, res) => {
     });
   });
 });
+
+
+app.get('/login-success', (req, res) => {
+  res.sendFile(path.join(viewsPath, 'main.html'));
+});
 // Example JWT Auth route 
 /*
 app.post('/login', (req, res) => {

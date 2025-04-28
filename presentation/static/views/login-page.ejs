@@ -27,13 +27,14 @@
       <p class="text-gray-600 mb-8 text-sm md:text-base">
         Welcome back! Please login to your account.
       </p>
-      <form class="w-full max-w-md">
+      <form class="w-full max-w-md" id = "loginForm">
         <label class="flex items-center text-[#2e56ff] text-xs font-semibold mb-1">
           <i class="fas fa-gem mr-1"></i>Em<span class="hidden">a</span>i section
         </label>
         <input
           type="email"
           placeholder="Email Address"
+          id = "email"
           value=""
           class="w-full border border-gray-300 focus:border-[#2e56ff] focus:ring-0 focus:outline-none px-3 py-2 mb-0.5 text-sm"
         />
@@ -42,6 +43,7 @@
           type="password"
           placeholder="Password"
           value=""
+          id = "password"
           class="w-full border border-t-0 border-gray-300 focus:border-[#2e56ff] focus:ring-0 focus:outline-none px-3 py-2 text-sm"
         />
         <a href="#" class="text-[#2e56ff] text-xs font-semibold block ml-1 mt-1 mb-6"></a>
@@ -93,5 +95,42 @@
       />
     </div>
   </div>
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async function(event) {
+      event.preventDefault(); // Prevent form from refreshing page
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      try {
+        const response = await fetch('/login-action', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          alert(data.message); // Login successful
+          console.log('JWT Token:', data.token);
+
+          // Example: Save the token to localStorage for future authenticated requests
+          localStorage.setItem('token', data.token);
+
+          // Redirect or load a protected page
+          window.location.href = '/login-success'; 
+        } else {
+          alert(data.message); // Show error (user not found, wrong password, etc.)
+        }
+
+      } catch (error) {
+        console.error('Fetch error:', error);
+        alert('Something went wrong. Please try again later.');
+      }
+    });
+  </script>
 </body>
 </html>
