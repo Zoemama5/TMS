@@ -50,7 +50,7 @@ database.connect((err) => {
 
 // Routes
 app.get('/', (req, res) => {
-  res.sendFile(path.join(viewsPath, 'index.html'));
+  res.sendFile(path.join(viewsPath, 'landingpage.html'));
 });
 
 app.get('/login-page', (req, res) => {

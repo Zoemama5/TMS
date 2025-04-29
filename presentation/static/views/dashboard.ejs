@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Admin Dashboard</title>
+
+    <!-- Montserrat Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="/css/sample.css">
+
+    <!-- ApexCharts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.js"></script>
+</head>
+<body>
+    <div class="grid-container">
+
+        <!-- Header -->
+        <header class="header">
+            <div class="menu-icon" onclick="openSidebar()">
+                <span class="material-icons-outlined">menu</span>
+            </div>
+            <div class="header-left">
+                <span class="material-icons-outlined">search</span>
+            </div>
+            <div class="header-right">
+                
+                <span class="material-icons-outlined accountCircle" id="accountCircle">account_circle</span>
+                <div id="dropdownMenu" class="dropdown">
+                    <a class="dropdown-item" href="/logout">Logout</a>
+                </div>
+            </div>
+        </header>
+        <!-- End Header -->
+
+        <!-- Sidebar -->
+        <aside id="sidebar">
+            <div class="sidebar-title">
+                <div class="sidebar-brand">
+                    <span class="material-icons-outlined">groups</span>
+                    <a href="" target="_blank">Self-Sustaining Indoor Vertical Farm</a>
+                </div>
+                <span class="material-icons-outlined" onclick="closeSidebar()">close</span>
+            </div>
+
+            <ul class="sidebar-list">
+                <li class="sidebar-list-item">
+                    <a href="/dashboard" target="_self">
+                        <span class="material-icons-outlined">dashboard</span> Dashboard
+                    </a>
+                </li>
+                <li class="sidebar-list-item">
+                    <a href="/registration" target="_self">
+                        <span class="material-icons-outlined">inventory_2</span> Current Readings
+                    </a>
+                </li>                
+                <li class="sidebar-list-item">
+                    <a href="/actuator-status" target="_self">
+                        <span class="material-icons-outlined">fact_check</span> Actuators Status
+                    </a>
+                </li>
+                <% if (Role === 'Admin') { %>
+                    <li class="sidebar-list-item">
+                        <a href="/registration" target="_self">
+                            <span class="material-icons-outlined">inventory_2</span> Add user
+                        </a>
+                    </li>
+                <% } %>
+               
+               
+                
+            </ul>
+        </aside>
+        <!-- End Sidebar -->
+
+        <!-- Main -->
+        <main class="main-container">
+            <!--LETTUCE-->
+            <div class = "title"> CURRENT READINGS </div>
+            <div class = "plant-title"> 
+                <h1>LETTUCE</h1>
+            </div>
+                <div class = "lettuce-cards">
+                    <div class = "col-md-4">
+                        <div class = "card">
+                            <div class="card-inner">
+                                <p class="text-primary">Lettuce (Current Temp) </p>
+                                <span class="material-symbols-outlined">
+                                  
+                                    </span>
+                            </div>
+                            <span class="text-primary font-weight-bold">
+                               
+                                <span class="text-primary font-weight-bold"> <%= tempValueLettuce ? tempValueLettuce : 'N/A' %> °C </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class = "col-md-4">
+                        <div class = "card">
+                            <div class="card-inner">
+                                <p class="text-primary">Lettuce (Current Humidity) </p>
+                                <span class="material-symbols-outlined">
+                                
+                                    </span>
+                            </div>
+                            <span class="text-primary font-weight-bold">
+                                <span class="text-primary font-weight-bold"> <%= HumidValueLettuce ? HumidValueLettuce : 'N/A' %> % </span>
+                            </span>
+                        </div>
+                        </div>
+                    
+                    <div class = "col-md-4">
+                        <div class = "card">
+                            <div class="card-inner">
+                                <p class="text-primary">Lettuce (Current Soil Moisture) </p>
+                                <span class="material-symbols-outlined">
+                                  
+                                    </span>
+                            </div>
+                            <span class="text-primary font-weight-bold">
+                                <span class="text-primary font-weight-bold"> <%= SoilMValueLettuce ? SoilMValueLettuce : 'N/A' %> </span>
+                            </span>
+                        </div>
+                    </div>
+                    
+                </div>
+          
+          <!--OKRA-->
+          <div class = "plant-title"> 
+            <h1> OKRA </h1> 
+
+          </div>
+          <div class = "okra-cards">
+            <div class = "col-md-4">
+                <div class = "card">
+                    <div class="card-inner">
+                        <p class="text-primary">Okra (Current Temp) </p>
+                        <span class="material-symbols-outlined">
+                          
+                            </span>
+                    </div>
+                    <span class="text-primary font-weight-bold">
+                       
+                        <span class="text-primary font-weight-bold"> <%= tempValueOkra   ? tempValueOkra : 'N/A' %> °C </span>
+                    </span>
+                </div>
+            </div>
+            <div class = "col-md-4">
+                <div class = "card">
+                    <div class="card-inner">
+                        <p class="text-primary">Okra (Current Humidity) </p>
+                        <span class="material-symbols-outlined">
+                        
+                            </span>
+                    </div>
+                    <span class="text-primary font-weight-bold">
+                        <span class="text-primary font-weight-bold"> <%= HumidValueOkra ? HumidValueOkra : 'N/A' %> % </span>
+                    </span>
+                </div>
+                </div>
+            
+            <div class = "col-md-4">
+                <div class = "card">
+                    <div class="card-inner">
+                        <p class="text-primary">Okra (Current Soil Moisture) </p>
+                        <span class="material-symbols-outlined">
+                          
+                            </span>
+                    </div>
+                    <span class="text-primary font-weight-bold">
+                        <span class="text-primary font-weight-bold"> <%= SoilMValueOkra ? SoilMValueOkra : 'N/A' %> </span>
+                    </span>
+                </div>
+            </div>
+         </div>
+         
+          <!--PECHAY-->
+          <div class = "plant-title"> 
+            <h1>Pechay </h1> 
+
+          </div>
+          <div class = "pechay-cards">
+            <div class = "col-md-4">
+                <div class = "card">
+                    <div class="card-inner">
+                        <p class="text-primary">Pechay (Current Temp) </p>
+                        <span class="material-symbols-outlined">
+                          
+                            </span>
+                    </div>
+                    <span class="text-primary font-weight-bold">
+                       
+                        <span class="text-primary font-weight-bold"> <%= tempValuePechay ? tempValuePechay : 'N/A' %> °C </span>
+                    </span>
+                </div>
+            </div>
+            <div class = "col-md-4">
+                <div class = "card">
+                    <div class="card-inner">
+                        <p class="text-primary">Lettuce (Current Humidity) </p>
+                        <span class="material-symbols-outlined">
+                        
+                            </span>
+                    </div>
+                    <span class="text-primary font-weight-bold">
+                        <span class="text-primary font-weight-bold"> <%= HumidValuePechay ? HumidValuePechay : 'N/A' %> % </span>
+                    </span>
+                </div>
+                </div>
+            
+            <div class = "col-md-4">
+                <div class = "card">
+                    <div class="card-inner">
+                        <p class="text-primary">Lettuce (Current Soil Moisture) </p>
+                        <span class="material-symbols-outlined">
+                          
+                            </span>
+                    </div>
+                    <span class="text-primary font-weight-bold">
+                        <span class="text-primary font-weight-bold"> <%= SoilMValuePechay ? SoilMValuePechay : 'N/A' %> </span>
+                    </span>
+                </div>
+            </div>
+          
+        </main>
+        <!-- End Main -->
+
+    </div>
+
+    <!-- Custom JS -->
+    <script src="/js/scripts.js"></script>
+</body>
+</html>
