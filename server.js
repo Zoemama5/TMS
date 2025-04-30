@@ -16,7 +16,8 @@ const assetsPath = path.join(__dirname, 'src/presentation/static/assets');
 
 // Middleware
 app.use(express.static(assetsPath));
-app.use(bodyParser.json());
+app.use('/static', express.static(path.join(__dirname, 'presentation/static')));
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
