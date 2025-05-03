@@ -55,8 +55,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/login-page', (req, res) => {
-  res.render('login-page'); 
-  console.log('GET /login-page hit!');
+  res.sendFile(path.join(viewsPath, 'login-page-final.html'));
 });
 
 

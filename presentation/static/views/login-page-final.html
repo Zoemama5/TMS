@@ -1,0 +1,147 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>TimeWise Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+    </style>
+  </head>
+  <body class="bg-white min-h-screen flex items-center justify-center px-4">
+    <main class="max-w-md w-full">
+      <div class="flex justify-center mb-6">
+        <a href="#" title="" class="flex items-center justify-center h-24 w-32 rounded focus:outline focus:outline-1 focus:outline-black focus:ring-1 focus:ring-gray-900 focus:ring-offset-2">
+            <img class="w-auto h-23" src="/static/assets/imgs/logo-2.png" alt="Logo" />
+          </a>
+      </div>
+      <h1 class="text-center text-2xl font-semibold text-gray-900 mb-2">
+        Login to TimeWise
+      </h1>
+      <p class="text-center text-gray-600 text-sm mb-8 leading-relaxed">
+        Ready to make TIME for what matters most?
+        <br/>Take Control of Your Time. Boost Your Productivity.
+      </p>
+      <!--
+      <button
+        type="button"
+        class="w-full border border-gray-300 rounded-md py-2.5 px-4 mb-6 flex items-center justify-center gap-2 text-gray-800 text-sm hover:bg-gray-50"
+      >
+        <img
+          alt="Google G logo in color"
+          class="w-4.5 h-4.5"
+          height="18"
+          src="https://storage.googleapis.com/a1aa/image/010e6e83-8f8f-4e74-2e8d-e07aa1c26c79.jpg"
+          width="18"
+        />
+        Sign in with Google
+      </button>
+      <div class="flex items-center mb-6">
+        <hr class="flex-grow border-t border-gray-300" />
+        <span class="mx-3 text-gray-400 text-xs font-medium">or</span>
+        <hr class="flex-grow border-t border-gray-300" />
+      </div>-->
+      <form id="loginForm">
+        <label
+          class="block text-gray-900 font-semibold text-sm mb-1"
+          for="email"
+        >
+          Email
+        </label>
+        <input
+          type="email"
+          id="email"
+          placeholder="Email address"
+          class="w-full border border-gray-300 rounded-md py-2.5 px-3 mb-4 text-gray-600 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600"
+        />
+        <div class="flex justify-between items-center mb-1">
+          <label class="text-gray-900 font-semibold text-sm" for="password">
+            Password
+          </label>
+          <a
+            href="#"
+            class="text-indigo-600 text-xs font-medium hover:underline"
+          >
+            Forgot Password?
+          </a>
+        </div>
+        <input
+          type="password"
+          id="password"
+          placeholder="Password (min. 8 character)"
+          class="w-full border border-gray-300 rounded-md py-2.5 px-3 mb-4 text-gray-600 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600"
+        />
+        <div class="flex items-center mb-6">
+          <input
+            type="checkbox"
+            id="remember"
+            class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+          />
+          <label
+            for="remember"
+            class="ml-2 text-gray-700 text-sm select-none"
+          >
+            Remember Me
+          </label>
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm py-3 rounded-md"
+        >
+          Sign in
+        </button>
+      </form>
+      <p class="text-center text-gray-900 text-sm mt-6">
+        Don't have an account?
+        <a href="#" class="font-semibold hover:underline">Sign up now</a>
+      </p>
+    </main>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(event) {
+      event.preventDefault(); // Prevent form from refreshing page
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      try {
+        const response = await fetch('/login-action', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          alert(data.message); // Login successful
+          console.log('JWT Token:', data.token);
+
+          // Example: Save the token to localStorage for future authenticated requests
+          localStorage.setItem('token', data.token);
+
+          // Redirect or load a protected page
+          window.location.href = '/login-success'; 
+        } else {
+          alert(data.message); // Show error (user not found, wrong password, etc.)
+        }
+
+      } catch (error) {
+        console.error('Fetch error:', error);
+        alert('Something went wrong. Please try again later.');
+      }
+    });
+    </script>
+  </body>
+</html>

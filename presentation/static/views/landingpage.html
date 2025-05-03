@@ -47,41 +47,22 @@
                     </div>
     
                     <div class="hidden lg:ml-auto lg:flex lg:items-center lg:space-x-10">
-                        <a href="#" title="" class="text-base font-medium text-gray-900 transition-all duration-200 rounded focus:outline-none font-pj hover:text-opacity-50 focus:ring-1 focus:ring-gray-900 focus:ring-offset-2"> Customer Login </a>
+                        <a href="/login-page" class="flex items-center p-3 -m-3 text-base font-medium text-gray-900 transition-all duration-200 rounded-xl hover:bg-gray-50 focus:outline-none font-pj focus:ring-1 focus:ring-gray-900 focus:ring-offset-2"> 
+                         Login 
+                          </a>
+                          
     
                         <a
                             href="#"
                             title=""
                             class="inline-flex items-center justify-center px-6 py-3 text-base font-bold leading-7 text-white transition-all duration-200 bg-gray-900 border border-transparent rounded-xl hover:bg-gray-600 font-pj focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
                             role="button"
+                            id = "openModalBtn"
                         >
                             Sign up
                         </a>
                     </div>
                 </div>
-    
-                <nav x-show="expanded" x-collapse>
-                    <div class="px-1 py-8">
-                        <div class="grid gap-y-7">
-                            <a href="#" title="" class="flex items-center p-3 -m-3 text-base font-medium text-gray-900 transition-all duration-200 rounded-xl hover:bg-gray-50 focus:outline-none font-pj focus:ring-1 focus:ring-gray-900 focus:ring-offset-2"> Features </a>
-    
-                            <a href="#" title="" class="flex items-center p-3 -m-3 text-base font-medium text-gray-900 transition-all duration-200 rounded-xl hover:bg-gray-50 focus:outline-none font-pj focus:ring-1 focus:ring-gray-900 focus:ring-offset-2"> Pricing </a>
-    
-                            <a href="#" title="" class="flex items-center p-3 -m-3 text-base font-medium text-gray-900 transition-all duration-200 rounded-xl hover:bg-gray-50 focus:outline-none font-pj focus:ring-1 focus:ring-gray-900 focus:ring-offset-2"> Automation </a>
-    
-                            <a href="#" title="" class="flex items-center p-3 -m-3 text-base font-medium text-gray-900 transition-all duration-200 rounded-xl hover:bg-gray-50 focus:outline-none font-pj focus:ring-1 focus:ring-gray-900 focus:ring-offset-2"> Customer Login </a>
-    
-                            <a
-                                href="#"
-                                title=""
-                                class="inline-flex items-center justify-center px-6 py-3 text-base font-bold leading-7 text-white transition-all duration-200 bg-gray-900 border border-transparent rounded-xl hover:bg-gray-600 font-pj focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
-                                role="button"
-                            >
-                                Sign up
-                            </a>
-                        </div>
-                    </div>
-                </nav>
             </div>
         </header>
     
@@ -98,8 +79,9 @@
                         <a
                             href="#"
                             title=""
-                            class="inline-flex items-center justify-center w-full px-8 py-3 text-lg font-bold text-white transition-all duration-200 bg-gray-900 border-2 border-transparent sm:w-auto rounded-xl font-pj hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
+                            class="inline-flex items-center justify-center w-full px-8 py-3 text-lg font-bold text-white transition-all duration-200 bg-gray-900 border-2 border-transparent sm:w-auto rounded-xl font-pj hover:bg-white hover:text-black hover:border-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
                             role="button"
+                            
                         >
                             Get your time right
                         </a>
@@ -137,8 +119,155 @@
                     </div>
                 </div>
             </div>
+            <div id="modalOverlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+                <!-- Modal Content -->
+                <div id="modalContent" class="w-full bg-white rounded-lg shadow dark:bg-white dark:border md:mt-0 sm:max-w-md xl:p-0 dark:border-gray-700 opacity-0 scale-95 transition-all duration-300 relative">
+                  
+                  <!-- Close Button -->
+                  <button id="closeModalBtn" class="absolute top-3 right-4 text-gray-400 hover:text-gray-900 dark:hover:text-black">
+                    ✕
+                  </button>
+                  
+                  <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                    <div class="flex flex-col items-center justify-center space-y-2">
+                      <a href="#" title="" class="flex items-center justify-center h-24 w-32 rounded focus:outline focus:outline-1 focus:outline-black focus:ring-1 focus:ring-gray-900 focus:ring-offset-2">
+                        <img class="w-auto h-23" src="/static/assets/imgs/logo-2.png" alt="Logo" />
+                      </a>
+                    </div>
+                    <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-black">
+                      Create an account
+                    </h1>
+                    <form class="space-y-4 md:space-y-6" id="RegistrationForm">
+                      <div>
+                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Your email</label>
+                        <input type="email" name="email" id="email" required placeholder="name@company.com"
+                        class="bg-white border-2 border-gray-400 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-white dark:border-gray-400 dark:text-black"/>
+                      </div>
+                      <div>
+                        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Password</label>
+                        <input type="password" name="password" id="password" required placeholder="••••••••"
+                        class="bg-white border-2 border-gray-400 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-white dark:border-gray-400 dark:text-black"/>
+                      </div>
+                      <div>
+                        <label for="confirm-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Confirm password</label>
+                        <input type="password" name="confirm-password" id="confirm-password" required placeholder="••••••••"
+                        class="bg-white border-2 border-gray-400 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-white dark:border-gray-400 dark:text-black"/>
+                      </div>
+                      <div class="flex items-start">
+                        <div class="flex items-center h-5">
+                          <input id="terms" type="checkbox" required
+                            class="w-4 h-4 border border-gray-300 rounded bg-gray-50 dark:bg-gray-700 dark:border-gray-500"/>
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="terms" class="font-light text-black dark:text-black">
+                              I accept the
+                              <a class="font-medium text-primary-600 hover:underline dark:text-primary-500" href="#">
+                                Terms and Conditions
+                              </a>
+                            </label>
+                          </div>
+                          
+                      </div>
+                      <button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700">
+                        Create an account
+                      </button>
+                      <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+                        Already have an account? <a href="#" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</a>
+                      </p>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              
         </section>
     </div>
+    <script>
+        const openModalBtn = document.getElementById('openModalBtn');
+      const modalOverlay = document.getElementById('modalOverlay');
+      const modalContent = document.getElementById('modalContent');
+      const closeModalBtn = document.getElementById('closeModalBtn');
+    
+      openModalBtn.addEventListener('click', () => {
+        setTimeout(() => {
+          modalOverlay.classList.remove('hidden');
+    
+          // animate modal content
+          requestAnimationFrame(() => {
+            modalContent.classList.remove('opacity-0', 'scale-95');
+            modalContent.classList.add('opacity-100', 'scale-100');
+          });
+        }, 100); // 500ms delay
+      });
+    
+      closeModalBtn.addEventListener('click', () => {
+        closeModal();
+      });
+
+        modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) {
+          closeModal();
+        }
+      });
+      
+      function closeModal() {
+        modalContent.classList.add('opacity-0', 'scale-95');
+        modalContent.classList.remove('opacity-100', 'scale-100');
+        setTimeout(() => {
+          modalOverlay.classList.add('hidden');
+        }, 300); // match transition duration
+      }
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modalOverlay.classList.contains('hidden')) {
+          closeModal();
+        }
+      });
+     
+
+      //Register Function 
+      document.getElementById("RegistrationForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const formData = new FormData(this);
+        const password = formData.get('password');
+        const confirmpassword = formData.get('confirm-password');
+        if (password == confirmpassword){
+        fetch('/register-action', {
+          method: 'POST',
+          body: new URLSearchParams(formData),
+          headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success){
+             Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: data.message,
+                }).then(() => {
+                  closeModalBtn.click(); // Redirect after success
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: data.message,
+                });
+            }
+        })
+        .catch(error => console.error('Error-Message:', error));
+        }
+        else{
+          Swal.fire({
+            icon: 'Error',
+            title: 'Password Error',
+            text:  'Password and Confirm Password do not match'
+          })
+        }
+    });
+    </script>
     
 </body>
 </html
