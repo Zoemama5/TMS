@@ -52,95 +52,63 @@
         <hr class="flex-grow border-t border-gray-300" />
       </div>-->
       <form id="loginForm">
-        <label
-          class="block text-gray-900 font-semibold text-sm mb-1"
-          for="email"
-        >
-          Email
-        </label>
-        <input
-          type="email"
-          id="email"
-          placeholder="Email address"
-          class="w-full border border-gray-300 rounded-md py-2.5 px-3 mb-4 text-gray-600 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600"
+        <label class="block text-gray-900 font-semibold text-sm mb-1" for="email"> Email </label>
+        <input type="email" id="email" placeholder="Email address"
+        class="w-full border border-gray-300 rounded-md py-2.5 px-3 mb-4 text-gray-600 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600"
         />
         <div class="flex justify-between items-center mb-1">
-          <label class="text-gray-900 font-semibold text-sm" for="password">
-            Password
-          </label>
-          <a
-            href="#"
-            class="text-indigo-600 text-xs font-medium hover:underline"
-          >
-            Forgot Password?
-          </a>
+          <label class="text-gray-900 font-semibold text-sm" for="password"> Password </label>
+          <a href="#" class="text-indigo-600 text-xs font-medium hover:underline"> Forgot Password? </a>
         </div>
-        <input
-          type="password"
-          id="password"
-          placeholder="Password (min. 8 character)"
+        <input type="password" id="password" placeholder="Password (min. 8 character)"
           class="w-full border border-gray-300 rounded-md py-2.5 px-3 mb-4 text-gray-600 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600"
         />
         <div class="flex items-center mb-6">
-          <input
-            type="checkbox"
-            id="remember"
-            class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
-          />
-          <label
-            for="remember"
-            class="ml-2 text-gray-700 text-sm select-none"
-          >
-            Remember Me
-          </label>
+          <input type="checkbox" name = "remember" id="remember" class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"/>
+          <label for="remember" class="ml-2 text-gray-700 text-sm select-none">Remember Me</label>
         </div>
-        <button
-          type="submit"
-          class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm py-3 rounded-md"
-        >
+        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm py-3 rounded-md">
           Sign in
         </button>
       </form>
-      <p class="text-center text-gray-900 text-sm mt-6">
-        Don't have an account?
-        <a href="#" class="font-semibold hover:underline">Sign up now</a>
+      <p class="text-center text-gray-900 text-sm mt-6"> Don't have an account? <a href="/" class="font-semibold hover:underline">Sign up now</a>
       </p>
     </main>
     <script>
-        document.getElementById('loginForm').addEventListener('submit', async function(event) {
-      event.preventDefault(); // Prevent form from refreshing page
+      document.getElementById('loginForm').addEventListener('submit', async function(event) {
+          event.preventDefault(); // Prevent form from refreshing page
+          const email = document.getElementById('email').value;
+          const password = document.getElementById('password').value;
 
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
 
-      try {
-        const response = await fetch('/login-action', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ email, password })
-        });
+          try {
+            const response = await fetch('/login-action', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ email, password })
+            });
 
-        const data = await response.json();
+            const data = await response.json();
 
-        if (data.success) {
-          alert(data.message); // Login successful
-          console.log('JWT Token:', data.token);
+            if (data.success) {
+              alert(data.message); // Login successful
+              console.log('JWT Token:', data.token);
 
-          // Example: Save the token to localStorage for future authenticated requests
-          localStorage.setItem('token', data.token);
+              // Example: Save the token to localStorage for future authenticated requests
+              localStorage.setItem('token', data.token);
 
-          // Redirect or load a protected page
-          window.location.href = '/login-success'; 
-        } else {
-          alert(data.message); // Show error (user not found, wrong password, etc.)
-        }
+              // Redirect or load a protected page
+              window.location.href = '/login-success'; 
+            } else {
+              alert(data.message); // Show error (user not found, wrong password, etc.)
+            }
 
-      } catch (error) {
-        console.error('Fetch error:', error);
-        alert('Something went wrong. Please try again later.');
-      }
+          } catch (error) {
+            console.error('Fetch error:', error);
+            alert('Something went wrong. Please try again later.');
+          }
     });
     </script>
   </body>

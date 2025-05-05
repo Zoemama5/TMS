@@ -8,6 +8,7 @@ const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 const mysql = require('mysql2');
 const app = express();
+const cookieParser = require("cookie-parser");
 
 // Paths
 const uri = 'mongodb://localhost:27017/Coral'; 
@@ -20,10 +21,12 @@ app.use('/static', express.static(path.join(__dirname, 'presentation/static')));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cookieParser());
 
 // View engine setup (EJS)
 app.set('view engine', 'ejs');
 app.set('views', viewsPath);
+
 
 //Database connection
 mongoose.connect(uri, {
@@ -85,6 +88,7 @@ app.post('/register-action', (req, res) => {
 
 app.post('/login-action', (req, res) => {
   const { email, password } = req.body;
+  const remember =  req.body.remember === "on"; // For Checkbox
 
   database.query('SELECT * FROM users WHERE email = ?', [email], (err, results) => {
     if (err) {
@@ -103,19 +107,27 @@ app.post('/login-action', (req, res) => {
         console.log("Comparison error:", err);
         return res.json({ success: false, message: "Error checking password" });
       }
-
       if (!isMatch) {
         return res.json({ success: false, message: "Incorrect password" });
       }
 
       // Password matched, create JWT token
+      const expiresIn = remember ? "7d" : "1h";
+      const maxAge = remember ? 7 * 24 * 60 * 60 * 1000 : 60 * 60 * 1000; // in ms
+
       const token = jwt.sign(
-        { id: user.id, email: user.email }, // Payload
-        secretKey,                         // Secret key
-        { expiresIn: '1h' }                 // Token expiry
+        { id: user.id, email: user.email },
+        secretKey,
+        { expiresIn }
       );
 
-      return res.json({ success: true, message: "Login successful!", token });
+      // Set the token in an HTTP-only cookie
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: false, // Set to true if you're using HTTPS in production
+        maxAge,
+      });
+      return res.json({ success: true, message: "Login successful!" });
     });
   });
 });
@@ -123,6 +135,11 @@ app.post('/login-action', (req, res) => {
 
 app.get('/login-success', (req, res) => {
   res.sendFile(path.join(viewsPath, 'main.html'));
+});
+
+app.post('/logout', (req,res)=>{
+  res.clearCookie("token");
+  res.json({success:true, message: "Logged Out Successfully"});
 });
 // Example JWT Auth route 
 /*
