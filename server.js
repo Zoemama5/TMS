@@ -61,7 +61,12 @@ app.get('/login-page', (req, res) => {
   res.sendFile(path.join(viewsPath, 'login-page-final.html'));
 });
 
+app.get('/forgot-page', (req, res) =>{
+  res.sendFile(path.join(viewsPath,'forgot-password.html'));
+});
 
+
+// REGISTER
 app.post('/register-action', (req, res) => {
   const { email, password, confirmPassword } = req.body;
 
@@ -86,6 +91,8 @@ app.post('/register-action', (req, res) => {
   });
 })
 
+
+// JWT
 app.post('/login-action', (req, res) => {
   const { email, password } = req.body;
   const remember =  req.body.remember === "on"; // For Checkbox
@@ -131,6 +138,11 @@ app.post('/login-action', (req, res) => {
     });
   });
 });
+
+
+
+
+
 
 
 app.get('/login-success', (req, res) => {
