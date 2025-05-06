@@ -153,6 +153,58 @@ app.post('/logout', (req,res)=>{
   res.clearCookie("token");
   res.json({success:true, message: "Logged Out Successfully"});
 });
+
+
+const User = require('./infrastructure/JWT/models/User');
+const crypto = require('crypto');
+
+
+app.post('/forgot-password-action', async (req,res) => {
+  const { email } = req.body;
+  const user = await userSchema.findOne({ email });
+
+  if (!user) return res.status(404).json({ message: 'Email not found' });
+
+  const code = crypto.randomInt(100000, 999999).toString(); // 6-digit code
+  const expires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
+
+  user.resetCode = code;
+  user.resetCodeExpires = expires;
+  await user.save();
+
+  await sendEmail(email, 'Your Password Reset Code', `Your code is: ${code}`);
+  res.json({ message: 'Reset code sent to email' });
+});
+
+
+//EMAIL FUNCTION FOR TESTING TOMORROW
+
+const nodemailer = require('nodemailer');
+require('dotenv').config();
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail', // or your SMTP service
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
+
+const sendEmail = async (to, subject, text) => {
+  await transporter.sendMail({
+    from: process.env.EMAIL_USER,
+    to,
+    subject,
+    text,
+  });
+};
+
+
+
+
+
+
+
 // Example JWT Auth route 
 /*
 app.post('/login', (req, res) => {
