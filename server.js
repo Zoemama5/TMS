@@ -6,12 +6,18 @@ const secretKey = 'humprey-pogi';
 const bcrypt = require('bcryptjs');
 //Database
 const mongoose = require('mongoose');
+const  { MongoClient } = require('mongodb');
+
+
 const mysql = require('mysql2');
 const app = express();
 const cookieParser = require("cookie-parser");
 
 // Paths
-const uri = 'mongodb://localhost:27017/Coral'; 
+
+
+
+ 
 const viewsPath = path.join(__dirname, 'presentation', 'static', 'views');
 const assetsPath = path.join(__dirname, 'src/presentation/static/assets');
 
@@ -29,12 +35,39 @@ app.set('views', viewsPath);
 
 
 //Database connection
-mongoose.connect(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log('Connected to MongoDB'))
-.catch((err) => console.error('MongoDB connection error:', err));
+
+
+const uri = 'mongodb://localhost:27017'; 
+const client = new MongoClient(uri);
+
+client.connect((error) => {
+  if (error) {
+    console.error('Error connecting to the MongoDB database:', error);
+    return;
+  }
+
+  console.log('Connected to the MongoDB database');
+
+  const Mdb = client.db('TMS');
+  const Mcollection = Mdb.collection('User');
+
+  // Example insert to test
+  Mcollection.insertOne(
+    { Email: 'test@example.com', Password: '123456' },
+    (err, result) => {
+      if (err) {
+        console.error('Insert error:', err.message);
+      } else {
+        console.log('Insert success. ID:', result.insertedId);
+      }
+    }
+  );
+});
+const Mdb = client.db('TMS');
+const Mcollection = Mdb.collection('User');
+
+
+
 
 
 const database = mysql.createConnection({
@@ -52,6 +85,15 @@ database.connect((err) => {
   console.log('Connected to the MySQL database');
 });
 
+const userSchema = new mongoose.Schema({
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true }
+});
+
+const User = mongoose.model('User', userSchema);
+
+
+
 // Routes
 app.get('/', (req, res) => {
   res.sendFile(path.join(viewsPath, 'landingpage.html'));
@@ -67,29 +109,44 @@ app.get('/forgot-page', (req, res) =>{
 
 
 // REGISTER
-app.post('/register-action', (req, res) => {
-  const { email, password, confirmPassword } = req.body;
+app.post('/register-action', async (req, res) => {
+  const { email, password } = req.body;
 
+  try {
+    const existingMongo = await Mcollection.findOne({ Email: email });
 
-
-  bcrypt.hash(password, 10, (err, hash) => {
+    database.query('SELECT * FROM users WHERE email = ?', [email], (err, rows) => {
       if (err) {
+        return res.status(500).json({ success: false, message: error });
+      }
+    
+      if (existingMongo || rows.length > 0) {
+        return res.json({ success: false, message: "User already registered" });
+      }
+      bcrypt.hash(password, 10, (err, hash) => {
+        if (err) {
           console.log("Hashing error:", err);
           return res.json({ success: false, message: "Error hashing password" });
       }
+        Mcollection.insertOne({ Email: email, Password: hash });
 
-      database.query('INSERT INTO users (email, password) VALUES (?, ?)', 
-          [email, hash], 
-          (err, result) => {
-              if (err) {
-                  console.log("Database error:", err); // Log the error
-                  return res.json({ success: false, message: "Error registering user" });
-              }
-              return res.json({ success: true, message: "User registered successfully!" });
-          }
-      );
-  });
-})
+        database.execute('INSERT INTO users (email, password) VALUES (?, ?)', [email, hash]);
+
+        return res.json({ success: true, message: "User registered successfully!" });
+
+
+      }) 
+
+      
+    });
+    
+
+  } catch (error) {
+    console.error("Registration error:", error);
+    return res.status(500).json({ success: false, message: "Server error during registration" });
+  }
+});
+
 
 
 // JWT
@@ -155,13 +212,13 @@ app.post('/logout', (req,res)=>{
 });
 
 
-const User = require('./infrastructure/JWT/models/User');
+
 const crypto = require('crypto');
 
 
 app.post('/forgot-password-action', async (req,res) => {
   const { email } = req.body;
-  const user = await userSchema.findOne({ email });
+  const user = await User.findOne({ email });
 
   if (!user) return res.status(404).json({ message: 'Email not found' });
 
@@ -222,6 +279,7 @@ app.post('/login', (req, res) => {
 // Start server
 const PORT = 3000;
 app.listen(PORT, () => {
+  
   console.log(`TMS app is running at http://localhost:${PORT}`);
 });
 
