@@ -85,12 +85,6 @@ database.connect((err) => {
   console.log('Connected to the MySQL database');
 });
 
-const userSchema = new mongoose.Schema({
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true }
-});
-
-const User = mongoose.model('User', userSchema);
 
 
 
@@ -165,34 +159,40 @@ app.post('/login-action', (req, res) => {
     }
 
     const user = results[0];
+    const existingMongo =  Mcollection.findOne({ Email: email });
 
-    bcrypt.compare(password, user.password, (err, isMatch) => {
-      if (err) {
-        console.log("Comparison error:", err);
-        return res.json({ success: false, message: "Error checking password" });
-      }
-      if (!isMatch) {
-        return res.json({ success: false, message: "Incorrect password" });
-      }
+    if (existingMongo && user){
+      bcrypt.compare(password, user.password, (err, isMatch) => {
+        if (err) {
+          console.log("Comparison error:", err);
+          return res.json({ success: false, message: "Error checking password" });
+        }
+        if (!isMatch) {
+          return res.json({ success: false, message: "Incorrect password" });
+        }
 
-      // Password matched, create JWT token
-      const expiresIn = remember ? "7d" : "1h";
-      const maxAge = remember ? 7 * 24 * 60 * 60 * 1000 : 60 * 60 * 1000; // in ms
+        // Password matched, create JWT token
+        const expiresIn = remember ? "7d" : "1h";
+        const maxAge = remember ? 7 * 24 * 60 * 60 * 1000 : 60 * 60 * 1000; // in ms
 
-      const token = jwt.sign(
-        { id: user.id, email: user.email },
-        secretKey,
-        { expiresIn }
-      );
+        const token = jwt.sign(
+          { id: user.id, email: user.email },
+          secretKey,
+          { expiresIn }
+        );
 
-      // Set the token in an HTTP-only cookie
-      res.cookie("token", token, {
-        httpOnly: true,
-        secure: false, // Set to true if you're using HTTPS in production
-        maxAge,
+        // Set the token in an HTTP-only cookie
+        res.cookie("token", token, {
+          httpOnly: true,
+          secure: false, // Set to true if you're using HTTPS in production
+          maxAge,
+        });
+        return res.json({ success: true, message: "Login successful!" });
       });
-      return res.json({ success: true, message: "Login successful!" });
-    });
+    }
+    else{
+      return res.json({success:false, message: "User not found"});
+    }
   });
 });
 
@@ -216,21 +216,32 @@ app.post('/logout', (req,res)=>{
 const crypto = require('crypto');
 
 
-app.post('/forgot-password-action', async (req,res) => {
-  const { email } = req.body;
-  const user = await User.findOne({ email });
+app.post('/forgot-password-action', async (req, res) => {
+  try {
+    const { email } = req.body;
+    const user = await Mcollection.findOne({ Email: email });
 
-  if (!user) return res.status(404).json({ message: 'Email not found' });
+    if (!user) return res.status(404).json({ message: 'Email not found' });
 
-  const code = crypto.randomInt(100000, 999999).toString(); // 6-digit code
-  const expires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
+    const code = crypto.randomInt(100000, 999999).toString(); // 6-digit code
+    const expires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
 
-  user.resetCode = code;
-  user.resetCodeExpires = expires;
-  await user.save();
+    await Mcollection.updateOne(
+      { Email: email },
+      { $set: { resetCode: code, resetCodeExpires: expires } }
+    );
 
-  await sendEmail(email, 'Your Password Reset Code', `Your code is: ${code}`);
-  res.json({ message: 'Reset code sent to email' });
+    await sendEmail(
+      email,
+      'Your Password Reset Code',
+      `Your password reset code is: ${code}\nThis code will expire in 10 minutes.`
+    );
+
+    res.json({ status: 'ok', message: 'Reset code sent to email' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal server error' });
+  }
 });
 
 

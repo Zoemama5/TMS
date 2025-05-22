@@ -4,14 +4,9 @@
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <title>TimeWise Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
-      rel="stylesheet"
-    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
     <style>
       body {
         font-family: 'Inter', sans-serif;
@@ -93,21 +88,29 @@
             const data = await response.json();
 
             if (data.success) {
-              alert(data.message); // Login successful
-              console.log('JWT Token:', data.token);
-
-              // Example: Save the token to localStorage for future authenticated requests
-              localStorage.setItem('token', data.token);
-
-              // Redirect or load a protected page
-              window.location.href = '/login-success'; 
+              Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: data.message,
+                }).then(() => {
+                  localStorage.setItem('token', data.token);
+                  window.location.href = '/login-success'; 
+                });
+          
             } else {
-              alert(data.message); // Show error (user not found, wrong password, etc.)
+              Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: data.message,
+                });// Show error (user not found, wrong password, etc.)
             }
-
           } catch (error) {
             console.error('Fetch error:', error);
-            alert('Something went wrong. Please try again later.');
+            Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: error,
+                });
           }
     });
     </script>
