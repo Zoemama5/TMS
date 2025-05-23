@@ -237,9 +237,9 @@
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          email: formData.email,
-          password: formData.password,
-          confirmPassword: formData.confirmPassword
+          email,
+          password,
+          confirmPassword
          })
         })
         .then(response => response.json())

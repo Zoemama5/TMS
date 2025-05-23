@@ -237,7 +237,7 @@ app.post('/forgot-password-action', async (req, res) => {
       `Your password reset code is: ${code}\nThis code will expire in 10 minutes.`
     );
 
-    res.json({ status: 'ok', message: 'Reset code sent to email' });
+    res.json({ success:true, message: 'Reset code sent to email' });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Internal server error' });
@@ -267,7 +267,43 @@ const sendEmail = async (to, subject, text) => {
   });
 };
 
+// Validate Code 
+app.post('/validate-code', async (req, res) => {
+  try {
+    const { email, code } = req.body;
 
+    const user = await Mcollection.findOne({ Email: email });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    if (!user.resetCode || !user.resetCodeExpires) {
+      return res.status(400).json({ message: 'No reset code found. Please request a new one.' });
+    }
+
+    const now = new Date();
+
+    if (user.resetCode !== code) {
+      return res.status(400).json({ message: 'Invalid code' });
+    }
+
+    if (now > user.resetCodeExpires) {
+      return res.status(400).json({ message: 'Code expired' });
+    }
+
+    // Optional: clear the code after successful verification
+    await Mcollection.updateOne(
+      { Email: email },
+      { $unset: { resetCode: "", resetCodeExpires: "" } }
+    );
+
+    res.json({ success:true, message: 'Code verified. You can now reset your password.' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 
 
