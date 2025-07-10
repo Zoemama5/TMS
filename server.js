@@ -306,7 +306,39 @@ app.post('/validate-code', async (req, res) => {
 });
 
 
+app.post('/change-password-action', async (req, res) => {
+  try {
+    const { email, password, password2 } = req.body;
 
+    if (password !== password2) {
+      return res.json({ success: false, message: 'Passwords do not match' });
+    }
+
+    const user = await Mcollection.findOne({ Email: email });
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    const hashedPassword = await new Promise((resolve, reject) => {
+      bcrypt.hash(password, 10, (err, hash) => {
+        if (err) reject(err);
+        else resolve(hash);
+      });
+    });
+
+  
+    await Mcollection.updateOne(
+      { Email: email },
+      { $set: { Password: hashedPassword } }
+    );
+
+    return res.json({ success: true, message: "Password updated successfully!" });
+
+  } catch (err) {
+    console.error("Change password error:", err);
+    return res.status(500).json({ success: false, message: "Internal server error" });
+  }
+});
 
 
 // Example JWT Auth route 
