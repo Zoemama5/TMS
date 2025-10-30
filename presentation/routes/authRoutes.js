@@ -1,4 +1,4 @@
-const express = require('express');
+/*const express = require('express');
 const router = express.Router();
 const authService = require('TMS\application\services\AuthService.Js');
 
@@ -12,4 +12,13 @@ router.post('/login', (req, res) => {
   }
 });
 
+module.exports = router;
+*/
+
+const express = require('express');
+const router = express.Router();
+const { registerUser, loginUser } = require('../controller/authController');
+
+router.post('/register-action', registerUser);
+router.post('/login-action', loginUser);
 module.exports = router;

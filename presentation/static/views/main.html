@@ -1,24 +1,22 @@
-<!Doctype html>
-<head>
+<html lang="en">
+  <head> </head>
+  <body>
+    <title>MAIN LANDING PAGE</title>
 
-</head>
-<body>
-    <title> MAIN LANDING PAGE</title>
-
-    <h1> SUCCESS NIGGA</h1>
-    <button id = "logout">LOGOUT</button>
+    <h1>SUCCESS NIGGA</h1>
+    <button id="logout">LOGOUT</button>
     <script>
-        document.getElementById("logout").addEventListener("click", async() =>{
-            const res = await fetch("/logout", {
-                method: "Post",
-            });
-            const data = await res.json();
-            alert(data.message);
+      document.getElementById('logout').addEventListener('click', async () => {
+        const res = await fetch('/logout', {
+          method: 'Post',
+        });
+        const data = await res.json();
+        alert(data.message);
 
-            if(data.success){
-                window.location.href="/";
-            }
-    });
+        if (data.success) {
+          window.location.href = '/';
+        }
+      });
     </script>
-</body>
+  </body>
 </html>
