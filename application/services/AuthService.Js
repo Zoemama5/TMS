@@ -41,7 +41,7 @@ exports.loginService = async (email, password) => {
     if (!findUser) {
       throw new Error('User cannot be found');
     }
-    console.log('BETLOG');
+
     const isMatch = await bcrypt.compare(password, findUser.password);
     if (!isMatch) {
       throw new Error('Incorrect Password');

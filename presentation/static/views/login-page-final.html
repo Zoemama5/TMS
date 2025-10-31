@@ -27,11 +27,7 @@
           title=""
           class="flex items-center justify-center h-24 w-32 rounded focus:outline focus:outline-1 focus:outline-black focus:ring-1 focus:ring-gray-900 focus:ring-offset-2"
         >
-          <img
-            class="w-auto h-23"
-            src="/static/assets/imgs/logo-2.png"
-            alt="Logo"
-          />
+          <img class="w-auto h-23" src="/imgs/logo-2.png" alt="Logo" />
         </a>
       </div>
       <h1 class="text-center text-2xl font-semibold text-gray-900 mb-2">
@@ -114,7 +110,7 @@
       </p>
       <div class="flex items-center justify-center">
         <a
-          href="/auth/google"
+          id="googleLoginBtn"
           class="flex items-center justify-center w-full bg-white hover:bg-gray-100 text-gray-700 font-semibold text-sm py-3 rounded-md border border-gray-300 shadow-sm transition duration-200"
         >
           <img
@@ -128,45 +124,70 @@
     </main>
     <script>
       document
+        .getElementById('googleLoginBtn')
+        .addEventListener('click', async () => {
+          // Open Google OAuth in a new window (popup)
+          const popup = window.open(
+            '/auth/google',
+            '_blank',
+            'width=500,height=600'
+          );
+
+          // Poll for token from backend
+          const checkToken = setInterval(async () => {
+            try {
+              const token = localStorage.getItem('token');
+              if (token) {
+                clearInterval(checkToken);
+                popup.close();
+                window.location.href = '/auth/dashboard.html';
+              }
+            } catch (e) {}
+          }, 500);
+        });
+      document
         .getElementById('loginForm')
         .addEventListener('submit', async function (event) {
-          event.preventDefault(); // Prevent form from refreshing page
+          event.preventDefault();
+
           const email = document.getElementById('email').value;
           const password = document.getElementById('password').value;
-
+          const remember = document.getElementById('remember').checked;
           try {
             const response = await fetch('/auth/login-action', {
               method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ email, password }),
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email, password, remember }),
             });
 
             const data = await response.json();
-
+            console.log('TESTING');
             if (data.success) {
               Swal.fire({
                 icon: 'success',
-                title: 'Success!',
+                title: 'Login successful',
                 text: data.message,
               }).then(() => {
+                console.log('hERE');
                 localStorage.setItem('token', data.token);
-                window.location.href = '/login-success';
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('user', JSON.stringify(data.user));
+                console.log('JWT received from backend:', data.token);
+                window.location.href = '/auth/dashboard.html';
               });
             } else {
               Swal.fire({
                 icon: 'error',
-                title: 'Oops...',
+                title: 'Login failed',
                 text: data.message,
-              }); // Show error (user not found, wrong password, etc.)
+              });
             }
           } catch (error) {
-            console.error('Fetch error:', error);
+            console.error('Login error:', error);
             Swal.fire({
               icon: 'error',
-              title: 'Oops...',
-              text: error,
+              title: 'Error',
+              text: 'Something went wrong. Please try again later.',
             });
           }
         });

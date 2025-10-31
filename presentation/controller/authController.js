@@ -3,6 +3,9 @@ const {
   loginService,
 } = require('../../application/services/AuthService');
 
+const jwt = require('jsonwebtoken');
+const { SESSION_SECRET } = require('../../infrastructure/config');
+
 exports.registerUser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -41,9 +44,9 @@ exports.registerUser = async (req, res) => {
 
 exports.loginUser = async (req, res) => {
   try {
-    console.log('I was here');
     const { email, password } = req.body;
-    console.log('DATA INCOMING:', email, password);
+    console.log(req.body.remember);
+    const remember = req.body.remember === 'on';
     if (!email || !password) {
       return res.status(400).json({ error: 'Email and password are required' });
     }
@@ -53,19 +56,24 @@ exports.loginUser = async (req, res) => {
         error: 'Password must be at least 6 characters',
       });
     }
-    console.log('CHECKING RES STATUS');
-    // Here service code should be placed
+
+    //CALLING OF LOGIN SERVICE
     const user = await loginService(email, password);
-    console.log(user);
-    console.log('Check service');
+
+    const token = jwt.sign(
+      { id: user.id, email: user.email },
+      SESSION_SECRET,
+      { expiresIn: remember ? '7d' : '1h' } // longer expiry if "remember me" checked
+    );
+
     res.status(200).json({
       success: true,
       message: 'Login successful!',
+      token,
       user,
     });
   } catch (error) {
-    console.log('HERE');
-    return res.status(400).json({
+    return res.status(401).json({
       success: false,
       message: error.message,
     });
