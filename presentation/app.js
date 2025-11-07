@@ -14,6 +14,7 @@ const { connectMongo } = require('../infrastructure/database/mongo');
 const { SESSION_SECRET } = require('../infrastructure/config');
 
 const authRoutes = require('./routes/authRoutes');
+const forgotRoute = require('./routes/forgotRoutes');
 // Create app
 const app = express();
 
@@ -46,5 +47,6 @@ app.use(express.static(path.join(__dirname, 'static', 'assets')));
 app.use('/', landingRoutes);
 app.use('/', loginRoute);
 app.use('/auth', authRoutes);
+app.use('/', forgotRoute);
 
 module.exports = app;
