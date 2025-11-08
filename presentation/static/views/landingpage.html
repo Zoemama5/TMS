@@ -1,274 +1,335 @@
 <!DOCTYPE html>
-<head>
-    <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Font Awesome -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
-  <!-- Alpine.js for Carousel -->
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OAuth Security App</title>
 
-    <div class="overflow-x-hidden bg-gray-50">
-        <header class="py-4 md:py-6" x-data="{expanded: false}">
-            <div class="container px-4 mx-auto sm:px-6 lg:px-8">
-                <div class="flex items-center justify-between">
-                    <div class="flex-shrink-0">
-                        <a href="#" title="" class="flex items-center justify-center h-24 w-32 rounded focus:outline focus:outline-1 focus:outline-black focus:ring-1 focus:ring-gray-900 focus:ring-offset-2">
-                            <img class="w-auto h-23" src="/imgs/logo-2.png" alt="Logo" />
-                          </a>
-                       
-                    </div>
-    
-                    <div class="flex lg:hidden">
-                        <button type="button" class="text-gray-900" @click="expanded = !expanded" :aria-expanded="expanded">
-                            <span x-show="!expanded" aria-hidden="true">
-                                <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" />
-                                </svg>
-                            </span>
-    
-                            <span x-show="expanded" aria-hidden="true">
-                                <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            </span>
-                        </button>
-                    </div>
-    
-                    <div class="hidden lg:flex lg:ml-16 lg:items-center lg:justify-center lg:space-x-10 xl:space-x-16">
-                        <a href="#" title="" class="text-xl font-medium text-gray-900 transition-all duration-200 rounded focus:outline-none font-pj hover:text-opacity-50 focus:ring-1 focus:ring-gray-900 focus:ring-offset-2"> Features </a>
-    
-                        <a href="#" title="" class="text-xl font-medium text-gray-900 transition-all duration-200 rounded focus:outline-none font-pj hover:text-opacity-50 focus:ring-1 focus:ring-gray-900 focus:ring-offset-2"> Time Tracking </a>
-    
-                        <a href="#" title="" class="text-xl font-medium text-gray-900 transition-all duration-200 rounded focus:outline-none font-pj hover:text-opacity-50 focus:ring-1 focus:ring-gray-900 focus:ring-offset-2"> Documentation </a>
-                    </div>
-    
-                    <div class="hidden lg:ml-auto lg:flex lg:items-center lg:space-x-10">
-                        <a href="/login-page" class="flex items-center p-3 -m-3 text-base font-medium text-gray-900 transition-all duration-200 rounded-xl hover:bg-gray-50 focus:outline-none font-pj focus:ring-1 focus:ring-gray-900 focus:ring-offset-2"> 
-                         Login 
-                          </a>
-                          
-    
-                        <a
-                            href="#"
-                            title=""
-                            class="inline-flex items-center justify-center px-6 py-3 text-base font-bold leading-7 text-white transition-all duration-200 bg-gray-900 border border-transparent rounded-xl hover:bg-gray-600 font-pj focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
-                            role="button"
-                            id = "openModalBtn"
-                        >
-                            Sign up
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </header>
-    
-        <section class="pt-12 bg-gray-50 sm:pt-16">
-            <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                <div class="max-w-2xl mx-auto text-center">
-                    
-                    <h1 class="px-6 text-lg text-gray-600 font-inter">Take Control of Your Time. Boost Your Productivity.</h1>
-                    <p class="mt-5 text-4xl font-bold leading-tight text-gray-900 sm:leading-tight sm:text-5xl lg:text-6xl lg:leading-tight font-pj">
-                        Ready to make TIME for what matters most?
-                    </p>
-    
-                    <div class="px-8 sm:items-center sm:justify-center sm:px-0 sm:space-x-5 sm:flex mt-9">
-                        <a
-                            href="#"
-                            title=""
-                            class="inline-flex items-center justify-center w-full px-8 py-3 text-lg font-bold text-white transition-all duration-200 bg-gray-900 border-2 border-transparent sm:w-auto rounded-xl font-pj hover:bg-white hover:text-black hover:border-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
-                            role="button"
-                            
-                        >
-                            Get your time right
-                        </a>
-    
-                        <a
-                            href="#"
-                            title=""
-                            class="inline-flex items-center justify-center w-full px-6 py-3 mt-4 text-lg font-bold text-gray-900 transition-all duration-200 border-2 border-gray-400 sm:w-auto sm:mt-0 rounded-xl font-pj focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 hover:bg-gray-900 focus:bg-gray-900 hover:text-white focus:text-white hover:border-gray-900 focus:border-gray-900"
-                            role="button"
-                        >
-                            <svg class="w-5 h-5 mr-2" viewBox="0 0 18 18" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M8.18003 13.4261C6.8586 14.3918 5 13.448 5 11.8113V5.43865C5 3.80198 6.8586 2.85821 8.18003 3.82387L12.5403 7.01022C13.6336 7.80916 13.6336 9.44084 12.5403 10.2398L8.18003 13.4261Z"
-                                    stroke-width="2"
-                                    stroke-miterlimit="10"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                />
-                            </svg>
-                            Watch free demo
-                        </a>
-                    </div>
-                    <!---
-                    <p class="mt-8 text-base text-gray-500 font-inter">60 Days free trial · No credit card required</p> -->
-                </div>
-            </div>
-    
-            <div class="pb-12 bg-white">
-                <div class="relative">
-                    <div class="absolute inset-0 h-2/3 bg-gray-50"></div>
-                    <div class="relative mx-auto">
-                        <div class="lg:max-w-6xl lg:mx-auto">
-                            <img class="transform scale-110" src="https://cdn.rareblocks.xyz/collection/clarity/images/hero/2/illustration.png" alt="" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="modalOverlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-                <!-- Modal Content -->
-                <div id="modalContent" class="w-full bg-white rounded-lg shadow dark:bg-white dark:border md:mt-0 sm:max-w-md xl:p-0 dark:border-gray-700 opacity-0 scale-95 transition-all duration-300 relative">
-                  
-                  <!-- Close Button -->
-                  <button id="closeModalBtn" class="absolute top-3 right-4 text-gray-400 hover:text-gray-900 dark:hover:text-black">
-                    ✕
-                  </button>
-                  
-                  <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-                    <div class="flex flex-col items-center justify-center space-y-2">
-                      <a href="#" title="" class="flex items-center justify-center h-24 w-32 rounded focus:outline focus:outline-1 focus:outline-black focus:ring-1 focus:ring-gray-900 focus:ring-offset-2">
-                        <img class="w-auto h-23" src="/static/assets/imgs/logo-2.png" alt="Logo" />
-                      </a>
-                    </div>
-                    <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-black">
-                      Create an account
-                    </h1>
-                    <form class="space-y-4 md:space-y-6" id="RegistrationForm">
-                      <div>
-                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Your email</label>
-                        <input type="email" name="email" id="email" required placeholder="name@company.com"
-                        class="bg-white border-2 border-gray-400 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-white dark:border-gray-400 dark:text-black"/>
-                      </div>
-                      <div>
-                        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Password</label>
-                        <input type="password" name="password" id="password" required placeholder="••••••••"
-                        class="bg-white border-2 border-gray-400 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-white dark:border-gray-400 dark:text-black"/>
-                      </div>
-                      <div>
-                        <label for="confirm-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Confirm password</label>
-                        <input type="password" name="confirm-password" id="confirm-password" required placeholder="••••••••"
-                        class="bg-white border-2 border-gray-400 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-white dark:border-gray-400 dark:text-black"/>
-                      </div>
-                      <div class="flex items-start">
-                        <div class="flex items-center h-5">
-                          <input id="terms" type="checkbox" required
-                            class="w-4 h-4 border border-gray-300 rounded bg-gray-50 dark:bg-gray-700 dark:border-gray-500"/>
-                        </div>
-                        <div class="ml-3 text-sm">
-                            <label for="terms" class="font-light text-black dark:text-black">
-                              I accept the
-                              <a class="font-medium text-primary-600 hover:underline dark:text-primary-500" href="#">
-                                Terms and Conditions
-                              </a>
-                            </label>
-                          </div>
-                          
-                      </div>
-                      <button type="submit" class="w-full text-white bg-black
-                      hover:bg-primary-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700">
-                        Create an account
-                      </button>
-                      <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                        Already have an account? <a href="/login-page" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</a>
-                      </p>
-                    </form>
-                  </div>
-                </div>
-              </div>
-              
-        </section>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Alpine.js for mobile nav -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+
+  <body class="bg-gray-50 text-gray-900 font-sans">
+    <!-- NAVBAR -->
+    <header class="bg-white shadow-sm py-4 md:py-6" x-data="{expanded: false}">
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between"
+      >
+        <!-- Logo + Nav Links -->
+        <div class="flex items-center space-x-12">
+          <!-- Logo -->
+          <a href="#" class="flex items-center space-x-2">
+            <img src="/imgs/logo-2.png" alt="Logo" class="w-20 h-auto" />
+          </a>
+
+          <!-- Nav Links (Desktop) -->
+          <nav class="hidden lg:flex space-x-8">
+            <a
+              href="/features"
+              class="relative text-gray-900 text-lg font-medium group"
+            >
+              Features
+              <span
+                class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gray-900 transition-all duration-300 group-hover:w-full"
+              ></span>
+            </a>
+            <a
+              href="/documentation"
+              class="relative text-gray-900 text-lg font-medium group"
+            >
+              Documentation
+              <span
+                class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gray-900 transition-all duration-300 group-hover:w-full"
+              ></span>
+            </a>
+          </nav>
+        </div>
+
+        <!-- Right-side Buttons -->
+        <div class="hidden lg:flex lg:items-center lg:space-x-6">
+          <a
+            href="/login-page"
+            class="text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-50 transition"
+          >
+            Login
+          </a>
+          <a
+            href="#"
+            id="openModalBtn"
+            class="bg-gray-900 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition"
+          >
+            Sign Up
+          </a>
+        </div>
+
+        <!-- Hamburger (Mobile) -->
+        <div class="flex lg:hidden">
+          <button
+            @click="expanded = !expanded"
+            type="button"
+            class="text-gray-900 focus:outline-none"
+          >
+            <span x-show="!expanded">
+              <i class="fa-solid fa-bars text-2xl"></i>
+            </span>
+            <span x-show="expanded">
+              <i class="fa-solid fa-xmark text-2xl"></i>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div x-show="expanded" class="lg:hidden bg-white shadow-md">
+        <nav class="flex flex-col px-4 py-2 space-y-2">
+          <a
+            href="/features"
+            class="text-gray-900 text-lg font-medium hover:underline transition"
+          >
+            Features
+          </a>
+          <a
+            href="/documentation"
+            class="text-gray-900 text-lg font-medium hover:underline transition"
+          >
+            Documentation
+          </a>
+          <a
+            href="/login-page"
+            class="text-gray-900 text-lg font-medium hover:underline transition"
+          >
+            Login
+          </a>
+          <a
+            href="#"
+            id="mobileSignUpBtn"
+            class="bg-gray-900 text-white text-lg font-medium px-4 py-2 rounded-lg hover:bg-gray-600 transition"
+          >
+            Sign Up
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="pt-12 sm:pt-16 text-center">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-lg text-gray-600">
+          Take Control of Your Time. Boost Your Productivity.
+        </h1>
+        <p
+          class="mt-5 text-3xl sm:text-5xl lg:text-6xl font-bold leading-tight text-gray-900"
+        >
+          Ready to make TIME for what matters most?
+        </p>
+
+        <div
+          class="mt-9 flex flex-col sm:flex-row sm:justify-center sm:space-x-5 space-y-4 sm:space-y-0"
+        >
+          <a
+            href="#"
+            class="inline-flex items-center justify-center px-8 py-3 text-lg font-bold text-white bg-gray-900 rounded-xl border-2 border-transparent hover:bg-white hover:text-black hover:border-black transition"
+            >Get your time right</a
+          >
+          <a
+            href="#"
+            class="inline-flex items-center justify-center px-6 py-3 text-lg font-bold text-gray-900 border-2 border-gray-400 rounded-xl hover:bg-gray-900 hover:text-white hover:border-gray-900 transition"
+          >
+            <i class="fa-solid fa-play mr-2"></i> Watch free demo
+          </a>
+        </div>
+      </div>
+
+      <!-- HERO IMAGE -->
+      <div class="mt-12 bg-white">
+        <div class="relative">
+          <div class="absolute inset-0 h-2/3 bg-gray-50"></div>
+          <div class="relative mx-auto max-w-6xl">
+            <img
+              src="https://cdn.rareblocks.xyz/collection/clarity/images/hero/2/illustration.png"
+              alt="Illustration"
+              class="w-full h-auto object-cover"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIGNUP MODAL -->
+    <div
+      id="modalOverlay"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+    >
+      <div
+        id="modalContent"
+        class="w-full bg-white rounded-lg shadow-lg sm:max-w-md p-6 transform scale-95 opacity-0 transition-all duration-300 relative"
+      >
+        <!-- Close -->
+        <button
+          id="closeModalBtn"
+          class="absolute top-3 right-4 text-gray-500 hover:text-gray-900 text-xl"
+        >
+          ✕
+        </button>
+
+        <!-- Modal Header -->
+        <div class="text-center mb-4">
+          <img src="/imgs/logo-2.png" alt="Logo" class="mx-auto w-28 mb-3" />
+          <h2 class="text-2xl font-bold text-gray-900">Create an Account</h2>
+        </div>
+
+        <!-- Form -->
+        <form id="RegistrationForm" class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">Email</label>
+            <input
+              type="email"
+              name="email"
+              required
+              placeholder="name@company.com"
+              class="w-full border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-gray-900"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-1">Password</label>
+            <input
+              type="password"
+              name="password"
+              required
+              placeholder="••••••••"
+              class="w-full border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-gray-900"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-1"
+              >Confirm Password</label
+            >
+            <input
+              type="password"
+              name="confirm-password"
+              required
+              placeholder="••••••••"
+              class="w-full border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-gray-900"
+            />
+          </div>
+
+          <div class="flex items-start">
+            <input
+              id="terms"
+              type="checkbox"
+              required
+              class="mt-1 w-4 h-4 border-gray-300 rounded focus:ring-gray-900"
+            />
+            <label for="terms" class="ml-2 text-sm text-gray-600">
+              I accept the
+              <a href="#" class="underline hover:text-gray-800"
+                >Terms and Conditions</a
+              >
+            </label>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full py-2.5 bg-gray-900 text-white font-medium rounded-lg hover:bg-gray-700 transition"
+          >
+            Create account
+          </button>
+
+          <p class="text-sm text-gray-600 text-center">
+            Already have an account?
+            <a href="/login-page" class="underline hover:text-gray-900"
+              >Login here</a
+            >
+          </p>
+        </form>
+      </div>
     </div>
+
+    <!-- JS Logic -->
     <script>
-      const openModalBtn = document.getElementById('openModalBtn');
       const modalOverlay = document.getElementById('modalOverlay');
       const modalContent = document.getElementById('modalContent');
+      const openModalBtns = [
+        document.getElementById('openModalBtn'),
+        document.getElementById('openModalBtnMobile'),
+      ];
       const closeModalBtn = document.getElementById('closeModalBtn');
-    
-      openModalBtn.addEventListener('click', () => {
-        setTimeout(() => {
+
+      openModalBtns.forEach((btn) =>
+        btn?.addEventListener('click', () => {
           modalOverlay.classList.remove('hidden');
-    
-          // animate modal content
           requestAnimationFrame(() => {
             modalContent.classList.remove('opacity-0', 'scale-95');
             modalContent.classList.add('opacity-100', 'scale-100');
           });
-        }, 100); // 500ms delay
-      });
-    
-      closeModalBtn.addEventListener('click', () => {
-        closeModal();
-      });
+        })
+      );
 
-        modalOverlay.addEventListener('click', (e) => {
-        if (e.target === modalOverlay) {
-          closeModal();
-        }
-      });
-      
-      function closeModal() {
+      const closeModal = () => {
         modalContent.classList.add('opacity-0', 'scale-95');
         modalContent.classList.remove('opacity-100', 'scale-100');
-        setTimeout(() => {
-          modalOverlay.classList.add('hidden');
-        }, 300); // match transition duration
-      }
+        setTimeout(() => modalOverlay.classList.add('hidden'), 300);
+      };
 
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !modalOverlay.classList.contains('hidden')) {
-          closeModal();
-        }
+      closeModalBtn.addEventListener('click', closeModal);
+      modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) closeModal();
       });
-     
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modalOverlay.classList.contains('hidden'))
+          closeModal();
+      });
 
-      //Register Function 
-      document.getElementById("RegistrationForm").addEventListener("submit", function(event) {
-        event.preventDefault();
+      // Registration logic
+      document
+        .getElementById('RegistrationForm')
+        .addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const formData = new FormData(e.target);
+          const password = formData.get('password');
+          const confirmPassword = formData.get('confirm-password');
 
-        const formData = new FormData(this);
-        const password = formData.get('password');
-        const confirmpassword = formData.get('confirm-password');
-        if (password == confirmpassword){
-        fetch('/auth/register-action', {
-          method: 'POST',
-          body: new URLSearchParams(formData),
-          headers: {
-              "Content-Type": "application/x-www-form-urlencoded"
+          if (password !== confirmPassword) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Password Error',
+              text: 'Passwords do not match',
+            });
+            return;
           }
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data.success){
-             Swal.fire({
-                    icon: 'success',
-                    title: 'Success!',
-                    text: data.message,
-                }).then(() => {
-                  closeModalBtn.click(); // Redirect after success
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title:'Error',
-                    text: data.message,
-                });
-            }
-        })
-        
-        }
-        else{
+
+          const response = await fetch('/auth/register-action', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(formData),
+          });
+
+          const data = await response.json();
           Swal.fire({
-            icon: 'Error',
-            title: 'Password Error',
-            text:  'Password and Confirm Password do not match'
-          })
-        }
-    });
+            icon: data.success ? 'success' : 'error',
+            title: data.success ? 'Success!' : 'Error',
+            text: data.message,
+          }).then(() => {
+            if (data.success) closeModal();
+          });
+        });
     </script>
-    
-</body>
-</html
+  </body>
+</html>

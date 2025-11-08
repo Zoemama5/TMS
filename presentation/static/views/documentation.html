@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OAuth Security App Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-gray-50 text-gray-900">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200" x-data="{ open: false }">
+      <div
+        class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center"
+      >
+        <!-- Logo + Title -->
+        <a href="/" class="flex items-center space-x-2">
+          <img src="/imgs/logo-2.png" alt="Logo" class="w-20 h-auto" />
+          <span class="text-2xl font-bold text-gray-800"
+            >OAuth Security Docs</span
+          >
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden md:flex space-x-8 text-gray-700">
+          <a
+            href="/"
+            class="hover:border-b-2 hover:border-gray-800 pb-1 transition"
+            >Home</a
+          >
+          <span
+            class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gray-900 transition-all duration-300 group-hover:w-full"
+          ></span>
+          <a
+            href="/features"
+            class="hover:border-b-2 hover:border-gray-800 pb-1 transition"
+            >Features</a
+          >
+          <span
+            class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gray-900 transition-all duration-300 group-hover:w-full"
+          ></span>
+          <a
+            href="/documentation"
+            class="font-semibold border-b-2 border-gray-800 pb-1 transition"
+            >Documentation</a
+          >
+          <span
+            class="absolute left-0 -bottom-1 w-0 h-0.5 bg-gray-900 transition-all duration-300 group-hover:w-full"
+          ></span>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <div class="md:hidden">
+          <button
+            @click="open = !open"
+            class="text-gray-900 focus:outline-none"
+          >
+            <span x-show="!open">
+              <i class="fa-solid fa-bars text-2xl"></i>
+            </span>
+            <span x-show="open">
+              <i class="fa-solid fa-xmark text-2xl"></i>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div x-show="open" class="md:hidden bg-white border-t border-gray-200">
+        <nav class="flex flex-col px-6 py-4 space-y-2 text-gray-700">
+          <a href="/" class="hover:underline transition">Home</a>
+          <a href="/features" class="hover:underline transition">Features</a>
+          <a
+            href="/documentation"
+            class="font-semibold border-b-2 border-gray-800 pb-1 transition"
+            >Documentation</a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Docs Section -->
+    <main class="max-w-5xl mx-auto px-6 py-12 space-y-16">
+      <!-- Overview -->
+      <section id="overview">
+        <h2 class="text-3xl font-bold mb-4 flex items-center gap-2">
+          <i class="fa-solid fa-shield-halved"></i> Overview
+        </h2>
+        <p class="text-gray-700 leading-relaxed">
+          The OAuth Security App is a secure authentication system built with
+          <strong>Node.js</strong>, <strong>Express</strong>, and
+          <strong>JWT</strong>. It provides registration, login, OAuth-based
+          authentication, and password reset functionalities following modern
+          web security standards.
+        </p>
+      </section>
+
+      <!-- Setup Instructions -->
+      <section id="setup">
+        <h2 class="text-3xl font-bold mb-4 flex items-center gap-2">
+          <i class="fa-solid fa-screwdriver-wrench"></i> Setup
+        </h2>
+        <ol class="list-decimal list-inside space-y-2 text-gray-700">
+          <li>
+            Clone the repository:
+            <pre
+              class="bg-gray-900 text-white p-3 rounded-lg mt-2"
+            ><code>git clone https://github.com/your-repo/oauth-security-app.git</code></pre>
+          </li>
+          <li>
+            Install dependencies:
+            <pre
+              class="bg-gray-900 text-white p-3 rounded-lg mt-2"
+            ><code>npm install</code></pre>
+          </li>
+          <li>
+            Create a <code>.env</code> file and include:
+            <pre class="bg-gray-900 text-white p-3 rounded-lg mt-2"><code>
+MONGO_URI=mongodb+srv://...
+EMAIL_USER=your_email
+EMAIL_PASS=your_password
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_REDIRECT_USI=your_google_redirect_usi
+GOOGLE_SECRET=your_google_secret
+SESSION_SECRET=your_session_secret
+          </code></pre>
+          </li>
+          <li>
+            Run the server:
+            <pre
+              class="bg-gray-900 text-white p-3 rounded-lg mt-2"
+            ><code>npm start</code></pre>
+          </li>
+        </ol>
+      </section>
+
+      <!-- Google OAuth Setup -->
+      <section id="google-oauth">
+        <h2 class="text-3xl font-bold mb-4 flex items-center gap-2">
+          <i class="fa-brands fa-google"></i> Google Cloud Console Setup
+        </h2>
+        <p class="text-gray-700 leading-relaxed">
+          To enable Google OAuth 2.0 in your app, follow these steps to create
+          your credentials in the
+          <a
+            href="https://console.cloud.google.com/apis/credentials"
+            target="_blank"
+            class="text-blue-600 underline hover:text-blue-800"
+            >Google Cloud Console</a
+          >:
+        </p>
+
+        <ol class="list-decimal list-inside text-gray-700 space-y-2 mt-4">
+          <li>
+            Visit the
+            <a
+              href="https://console.cloud.google.com/apis/credentials"
+              target="_blank"
+              class="text-blue-600 underline hover:text-blue-800"
+              >Google Cloud Console Credentials page</a
+            >.
+          </li>
+          <li>Create or select a project for your application.</li>
+          <li>Navigate to <strong>APIs & Services → Credentials</strong>.</li>
+          <li>Click <strong>Create Credentials → OAuth Client ID</strong>.</li>
+          <li>Set the application type to <strong>Web Application</strong>.</li>
+          <li>
+            Under <strong>Authorized redirect URIs</strong>, add:
+            <pre
+              class="bg-gray-900 text-white p-3 rounded-lg mt-2"
+            ><code>http://localhost:3000/auth/google/callback</code></pre>
+          </li>
+          <li>
+            After creating the credentials, copy the
+            <strong>Client ID</strong> and <strong>Client Secret</strong> and
+            add them to your <code>.env</code> file.
+          </li>
+        </ol>
+
+        <div class="mt-6 bg-gray-100 border border-gray-300 rounded-lg p-4">
+          <p class="text-gray-800">
+            ⚙️ <strong>Pro Tip:</strong> Ensure the Google+ API is enabled under
+            <strong>APIs & Services → Library</strong> to allow user info
+            retrieval.
+          </p>
+        </div>
+      </section>
+
+      <!-- API Endpoints -->
+      <section id="api">
+        <h2 class="text-3xl font-bold mb-4 flex items-center gap-2">
+          <i class="fa-solid fa-code"></i> API Endpoints
+        </h2>
+
+        <div class="space-y-8">
+          <div>
+            <h3 class="text-xl font-semibold">1. Register</h3>
+            <pre
+              class="bg-gray-900 text-white p-4 rounded-lg mt-2"
+            ><code>POST /auth/register-action
+Body:
+{
+  "email": "user@example.com",
+  "password": "your_password"
+}
+Response:
+{
+  "success": true,
+  "message": "Account created successfully"
+}
+          </code></pre>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-semibold">2. Login</h3>
+            <pre
+              class="bg-gray-900 text-white p-4 rounded-lg mt-2"
+            ><code>POST /auth/login
+Body:
+{
+  "email": "user@example.com",
+  "password": "your_password"
+}
+Response:
+{
+  "token": "JWT_TOKEN_HERE",
+  "message": "Login successful"
+}
+          </code></pre>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-semibold">3. Forgot Password</h3>
+            <pre
+              class="bg-gray-900 text-white p-4 rounded-lg mt-2"
+            ><code>POST /auth/forgot-password
+Body:
+{
+  "email": "user@example.com"
+}
+Response:
+{
+  "message": "Password reset link sent to email"
+}
+          </code></pre>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-semibold">4. Google OAuth Login</h3>
+            <pre
+              class="bg-gray-900 text-white p-4 rounded-lg mt-2"
+            ><code>GET /auth/google
+Redirects to Google OAuth consent screen.
+
+Callback:
+GET /auth/google/callback
+Response:
+{
+  "token": "JWT_TOKEN_HERE",
+  "user": { "email": "user@example.com" }
+}
+          </code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Security Notes -->
+      <section id="security">
+        <h2 class="text-3xl font-bold mb-4 flex items-center gap-2">
+          <i class="fa-solid fa-lock"></i> Security Practices
+        </h2>
+        <ul class="list-disc pl-5 text-gray-700 space-y-2">
+          <li>Passwords are hashed using <strong>bcrypt</strong>.</li>
+          <li>
+            JWT tokens are signed and verified with <code>JWT_SECRET</code>.
+          </li>
+          <li>
+            OAuth credentials are securely stored using environment variables.
+          </li>
+          <li>Session expiration is enforced via JWT expiry.</li>
+          <li>
+            CSRF protection and input validation are applied on all routes.
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 mt-16">
+      <div class="max-w-7xl mx-auto px-6 text-center space-y-3">
+        <p class="text-gray-300">
+          © 2025 OAuth Security App. All rights reserved.
+        </p>
+        <p class="text-gray-400">Developed by Humprey Agusitn</p>
+      </div>
+    </footer>
+  </body>
+</html>
