@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OAuth Security App – Features</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-gray-50 text-gray-900">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200" x-data="{ open: false }">
+      <div
+        class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center"
+      >
+        <!-- Logo + Title -->
+        <a href="/" class="flex items-center space-x-2">
+          <img src="/imgs/logo-2.png" alt="Logo" class="w-20 h-auto" />
+          <span class="text-2xl font-semibold text-gray-800">Features</span>
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden md:flex space-x-8 text-gray-700">
+          <a
+            href="/"
+            class="hover:border-b-2 hover:border-gray-800 pb-1 transition"
+            >Home</a
+          >
+          <a
+            href="/features"
+            class="font-medium border-b-2 border-gray-800 pb-1 transition"
+            >Features</a
+          >
+          <a
+            href="/documentation"
+            class="hover:border-b-2 hover:border-gray-800 pb-1 transition"
+            >Documentation</a
+          >
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <div class="md:hidden">
+          <button
+            @click="open = !open"
+            class="text-gray-900 focus:outline-none"
+          >
+            <span x-show="!open">
+              <i class="fa-solid fa-bars text-2xl"></i>
+            </span>
+            <span x-show="open">
+              <i class="fa-solid fa-xmark text-2xl"></i>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div x-show="open" class="md:hidden bg-white border-t border-gray-200">
+        <nav class="flex flex-col px-6 py-4 space-y-2 text-gray-700">
+          <a href="/" class="hover:underline transition">Home</a>
+          <a
+            href="/features"
+            class="font-medium border-b-2 border-gray-800 pb-1 transition"
+            >Features</a
+          >
+          <a href="/documentation" class="hover:underline transition"
+            >Documentation</a
+          >
+        </nav>
+      </div>
+    </header>
+    <!-- Hero Section -->
+    <section class="bg-gray-100 text-center py-20 border-b border-gray-200">
+      <h1 class="text-4xl font-semibold mb-4">Features Overview</h1>
+      <p class="text-gray-600 max-w-2xl mx-auto">
+        A clear, reliable, and secure authentication system built with Node.js,
+        JWT, and Google OAuth — following clean architecture principles.
+      </p>
+    </section>
+
+    <!-- Feature Grid -->
+    <main
+      class="max-w-6xl mx-auto px-6 py-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-10"
+    >
+      <div
+        class="bg-white border border-gray-200 rounded-xl p-8 shadow-sm hover:shadow-md transition"
+      >
+        <i class="fa-solid fa-user-plus text-gray-700 text-4xl mb-4"></i>
+        <h3 class="text-lg font-semibold mb-2">User Registration</h3>
+        <p class="text-gray-700 text-sm leading-relaxed">
+          Create new accounts with bcrypt password hashing and email
+          verification to prevent duplicates.
+        </p>
+      </div>
+
+      <div
+        class="bg-white border border-gray-200 rounded-xl p-8 shadow-sm hover:shadow-md transition"
+      >
+        <i class="fa-solid fa-right-to-bracket text-gray-700 text-4xl mb-4"></i>
+        <h3 class="text-lg font-semibold mb-2">JWT Authentication</h3>
+        <p class="text-gray-700 text-sm leading-relaxed">
+          Generate and validate secure JSON Web Tokens for stateless user
+          sessions.
+        </p>
+      </div>
+
+      <div
+        class="bg-white border border-gray-200 rounded-xl p-8 shadow-sm hover:shadow-md transition"
+      >
+        <i class="fa-solid fa-key text-gray-700 text-4xl mb-4"></i>
+        <h3 class="text-lg font-semibold mb-2">Password Reset</h3>
+        <p class="text-gray-700 text-sm leading-relaxed">
+          Implement secure password recovery with token-based email links and
+          expiry validation.
+        </p>
+      </div>
+
+      <div
+        class="bg-white border border-gray-200 rounded-xl p-8 shadow-sm hover:shadow-md transition"
+      >
+        <i class="fa-brands fa-google text-gray-700 text-4xl mb-4"></i>
+        <h3 class="text-lg font-semibold mb-2">Google OAuth 2.0</h3>
+        <p class="text-gray-700 text-sm leading-relaxed">
+          Allow sign-in with Google for convenience, using verified OAuth tokens
+          and scopes.
+        </p>
+      </div>
+
+      <div
+        class="bg-white border border-gray-200 rounded-xl p-8 shadow-sm hover:shadow-md transition"
+      >
+        <i class="fa-solid fa-lock text-gray-700 text-4xl mb-4"></i>
+        <h3 class="text-lg font-semibold mb-2">CSRF Protection</h3>
+        <p class="text-gray-700 text-sm leading-relaxed">
+          Protect against unauthorized actions by verifying CSRF tokens in
+          requests.
+        </p>
+      </div>
+
+      <div
+        class="bg-white border border-gray-200 rounded-xl p-8 shadow-sm hover:shadow-md transition"
+      >
+        <i class="fa-solid fa-shield-halved text-gray-700 text-4xl mb-4"></i>
+        <h3 class="text-lg font-semibold mb-2">Security Best Practices</h3>
+        <p class="text-gray-700 text-sm leading-relaxed">
+          Follows environment-based configs, token expiry, and input
+          sanitization.
+        </p>
+      </div>
+
+      <div
+        class="bg-white border border-gray-200 rounded-xl p-8 shadow-sm hover:shadow-md transition"
+      >
+        <i class="fa-solid fa-server text-gray-700 text-4xl mb-4"></i>
+        <h3 class="text-lg font-semibold mb-2">Scalable API</h3>
+        <p class="text-gray-700 text-sm leading-relaxed">
+          Designed with modular endpoints and service layers for maintainable,
+          scalable APIs.
+        </p>
+      </div>
+
+      <div
+        class="bg-white border border-gray-200 rounded-xl p-8 shadow-sm hover:shadow-md transition"
+      >
+        <i class="fa-solid fa-envelope text-gray-700 text-4xl mb-4"></i>
+        <h3 class="text-lg font-semibold mb-2">Email Integration</h3>
+        <p class="text-gray-700 text-sm leading-relaxed">
+          Sends verification and reset links using secure SMTP or NodeMailer
+          configurations.
+        </p>
+      </div>
+
+      <div
+        class="bg-white border border-gray-200 rounded-xl p-8 shadow-sm hover:shadow-md transition"
+      >
+        <i class="fa-solid fa-diagram-project text-gray-700 text-4xl mb-4"></i>
+        <h3 class="text-lg font-semibold mb-2">Clean Architecture</h3>
+        <p class="text-gray-700 text-sm leading-relaxed">
+          Implements service and controller separation, ensuring organized and
+          testable code.
+        </p>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-8 mt-12">
+      <div class="max-w-7xl mx-auto px-6 text-center space-y-2">
+        <p>© 2025 OAuth Security App. All rights reserved.</p>
+        <p class="text-gray-400 text-sm">Developed by Humprey Agustin</p>
+      </div>
+    </footer>
+  </body>
+</html>
