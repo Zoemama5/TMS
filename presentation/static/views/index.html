@@ -1,194 +1,323 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TimeWise Landing Page</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TimeWise Landing Page</title>
 
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Font Awesome -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
 
-  <!-- Alpine.js for Carousel -->
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</head>
-<body class="bg-gray-400 min-h-screen font-sans">
-
-  <!-- Header Section -->
-  <div class="container mx-auto px-6 py-8">
-    <div class="flex justify-between items-center mb-8">
-      <div class="text-4xl font-bold text-black">TimeWise</div>
-      <div>
-        <button class="bg-black text-white px-6 py-2 rounded-full font-semibold mr-2 hover:bg-gray-800 transition transform hover:-translate-y-1 shadow" onclick="location.href='/login-page'">
-          LOGIN
-        </button>
-        <button id="openModalBtn"
-  class="bg-gray-300 text-gray-800 px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition transform hover:-translate-y-1 shadow">
-  GET STARTED
-</button>
-
-      </div>
-    </div>
-
-    <!-- Tagline Section -->
-    <div class="rounded-xl bg-white/10 backdrop-blur-md shadow-lg p-8">
-      <div class="mb-8 max-w-xl">
-        <p class="text-white text-2xl font-light leading-relaxed">
-          Helps you organize, track, and prioritize tasks for better workflow and productivity.
-        </p>
-        <button class="mt-6 bg-white/20 text-white border border-white px-6 py-2 rounded-full font-medium hover:bg-white hover:text-gray-900 transition transform hover:-translate-y-1 shadow">
-          SEE HOW IT WORKS <i class="fas fa-arrow-right ml-2"></i>
-        </button>
-      </div>
-
-      <!-- Feature Carousel -->
-      <div x-data="{ currentSlide: 0 }" class="mt-12 relative">
-        <div class="flex justify-end mb-4 space-x-2">
-          <button @click="currentSlide = (currentSlide === 0 ? 2 : currentSlide - 1)" class="bg-black/50 text-white w-10 h-10 flex items-center justify-center rounded-full hover:bg-black transition transform hover:-translate-y-1">
-            <i class="fas fa-chevron-left"></i>
+    <!-- Alpine.js for Carousel -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+  <body class="bg-gray-400 min-h-screen font-sans">
+    <!-- Header Section -->
+    <div class="container mx-auto px-6 py-8">
+      <div class="flex justify-between items-center mb-8">
+        <div class="text-4xl font-bold text-black">TimeWise</div>
+        <div>
+          <button
+            class="bg-black text-white px-6 py-2 rounded-full font-semibold mr-2 hover:bg-gray-800 transition transform hover:-translate-y-1 shadow"
+            onclick="location.href='/login-page'"
+          >
+            LOGIN
           </button>
-          <button @click="currentSlide = (currentSlide === 2 ? 0 : currentSlide + 1)" class="bg-black/50 text-white w-10 h-10 flex items-center justify-center rounded-full hover:bg-black transition transform hover:-translate-y-1">
-            <i class="fas fa-chevron-right"></i>
+          <button
+            id="openModalBtn"
+            class="bg-gray-300 text-gray-800 px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition transform hover:-translate-y-1 shadow"
+          >
+            GET STARTED
+          </button>
+        </div>
+      </div>
+
+      <!-- Tagline Section -->
+      <div class="rounded-xl bg-white/10 backdrop-blur-md shadow-lg p-8">
+        <div class="mb-8 max-w-xl">
+          <p class="text-white text-2xl font-light leading-relaxed">
+            Helps you organize, track, and prioritize tasks for better workflow
+            and productivity.
+          </p>
+          <button
+            class="mt-6 bg-white/20 text-white border border-white px-6 py-2 rounded-full font-medium hover:bg-white hover:text-gray-900 transition transform hover:-translate-y-1 shadow"
+          >
+            SEE HOW IT WORKS <i class="fas fa-arrow-right ml-2"></i>
           </button>
         </div>
 
-        <div class="overflow-hidden">
-          <div class="flex transition-transform duration-500" :style="`transform: translateX(-${currentSlide * 100}%);`" style="width: 300%">
-            <!-- Slide 1 -->
-            <div class="flex space-x-4 w-full px-1 shrink-0" style="width: 100%">
-              <template x-for="feature in [
+        <!-- Feature Carousel -->
+        <div x-data="{ currentSlide: 0 }" class="mt-12 relative">
+          <div class="flex justify-end mb-4 space-x-2">
+            <button
+              @click="currentSlide = (currentSlide === 0 ? 2 : currentSlide - 1)"
+              class="bg-black/50 text-white w-10 h-10 flex items-center justify-center rounded-full hover:bg-black transition transform hover:-translate-y-1"
+            >
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button
+              @click="currentSlide = (currentSlide === 2 ? 0 : currentSlide + 1)"
+              class="bg-black/50 text-white w-10 h-10 flex items-center justify-center rounded-full hover:bg-black transition transform hover:-translate-y-1"
+            >
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+
+          <div class="overflow-hidden">
+            <div
+              class="flex transition-transform duration-500"
+              :style="`transform: translateX(-${currentSlide * 100}%);`"
+              style="width: 300%"
+            >
+              <!-- Slide 1 -->
+              <div
+                class="flex space-x-4 w-full px-1 shrink-0"
+                style="width: 100%"
+              >
+                <template
+                  x-for="feature in [
                 { icon: 'fa-tasks', title: 'Task Organization', desc: 'Create, categorize, and manage tasks with our intuitive drag-and-drop interface.' },
                 { icon: 'fa-chart-line', title: 'Progress Tracking', desc: 'Monitor your progress with visual metrics and comprehensive reporting.' },
                 { icon: 'fa-clock', title: 'Smart Prioritization', desc: 'Let our AI suggest task priorities based on deadlines and importance.' }
-              ]">
-                <div class="bg-white/10 rounded-lg p-6 text-white min-h-[250px] hover:-translate-y-1 hover:shadow-xl transition">
-                  <div class="text-2xl mb-3">
-                    <i :class="`fas ${feature.icon}`"></i>
+              ]"
+                >
+                  <div
+                    class="bg-white/10 rounded-lg p-6 text-white min-h-[250px] hover:-translate-y-1 hover:shadow-xl transition"
+                  >
+                    <div class="text-2xl mb-3">
+                      <i :class="`fas ${feature.icon}`"></i>
+                    </div>
+                    <h3
+                      class="font-semibold text-lg mb-2"
+                      x-text="feature.title"
+                    ></h3>
+                    <p class="text-sm text-white/80" x-text="feature.desc"></p>
                   </div>
-                  <h3 class="font-semibold text-lg mb-2" x-text="feature.title"></h3>
-                  <p class="text-sm text-white/80" x-text="feature.desc"></p>
-                </div>
-              </template>
-            </div>
+                </template>
+              </div>
 
-            <!-- Slide 2 -->
-            <div class="flex space-x-4 w-full px-1 shrink-0" style="width: 100%">
-              <template x-for="feature in [
+              <!-- Slide 2 -->
+              <div
+                class="flex space-x-4 w-full px-1 shrink-0"
+                style="width: 100%"
+              >
+                <template
+                  x-for="feature in [
                 { icon: 'fa-users', title: 'Team Collaboration', desc: 'Work together with your team in real-time with seamless collaboration tools.' },
                 { icon: 'fa-bell', title: 'Smart Notifications', desc: 'Stay on top of your tasks with intelligent reminders and notifications.' },
                 { icon: 'fa-sync-alt', title: 'App Integration', desc: 'Connect with your favorite apps and tools for a seamless workflow.' }
-              ]">
-                <div class="bg-white/10 rounded-lg p-6 text-white min-h-[250px] hover:-translate-y-1 hover:shadow-xl transition">
-                  <div class="text-2xl mb-3">
-                    <i :class="`fas ${feature.icon}`"></i>
+              ]"
+                >
+                  <div
+                    class="bg-white/10 rounded-lg p-6 text-white min-h-[250px] hover:-translate-y-1 hover:shadow-xl transition"
+                  >
+                    <div class="text-2xl mb-3">
+                      <i :class="`fas ${feature.icon}`"></i>
+                    </div>
+                    <h3
+                      class="font-semibold text-lg mb-2"
+                      x-text="feature.title"
+                    ></h3>
+                    <p class="text-sm text-white/80" x-text="feature.desc"></p>
                   </div>
-                  <h3 class="font-semibold text-lg mb-2" x-text="feature.title"></h3>
-                  <p class="text-sm text-white/80" x-text="feature.desc"></p>
-                </div>
-              </template>
-            </div>
+                </template>
+              </div>
 
-            <!-- Slide 3 -->
-            <div class="flex space-x-4 w-full px-1 shrink-0" style="width: 100%">
-              <template x-for="feature in [
+              <!-- Slide 3 -->
+              <div
+                class="flex space-x-4 w-full px-1 shrink-0"
+                style="width: 100%"
+              >
+                <template
+                  x-for="feature in [
                 { icon: 'fa-calendar-alt', title: 'Calendar View', desc: 'Plan your schedule with daily, weekly, and monthly calendar views.' },
                 { icon: 'fa-mobile-alt', title: 'Mobile Access', desc: 'Access your tasks anytime, anywhere with our mobile app.' },
                 { icon: 'fa-shield-alt', title: 'Secure Storage', desc: 'Keep your data safe with enterprise-grade security and encryption.' }
-              ]">
-                <div class="bg-white/10 rounded-lg p-6 text-white min-h-[250px] hover:-translate-y-1 hover:shadow-xl transition">
-                  <div class="text-2xl mb-3">
-                    <i :class="`fas ${feature.icon}`"></i>
+              ]"
+                >
+                  <div
+                    class="bg-white/10 rounded-lg p-6 text-white min-h-[250px] hover:-translate-y-1 hover:shadow-xl transition"
+                  >
+                    <div class="text-2xl mb-3">
+                      <i :class="`fas ${feature.icon}`"></i>
+                    </div>
+                    <h3
+                      class="font-semibold text-lg mb-2"
+                      x-text="feature.title"
+                    ></h3>
+                    <p class="text-sm text-white/80" x-text="feature.desc"></p>
                   </div>
-                  <h3 class="font-semibold text-lg mb-2" x-text="feature.title"></h3>
-                  <p class="text-sm text-white/80" x-text="feature.desc"></p>
-                </div>
-              </template>
+                </template>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- Indicators -->
-        <div class="flex justify-center mt-6 space-x-2">
-          <template x-for="i in 3">
-            <button @click="currentSlide = i - 1" :class="currentSlide === (i - 1) ? 'bg-white' : 'bg-white/50'" class="w-3 h-3 rounded-full"></button>
-          </template>
+          <!-- Indicators -->
+          <div class="flex justify-center mt-6 space-x-2">
+            <template x-for="i in 3">
+              <button
+                @click="currentSlide = i - 1"
+                :class="currentSlide === (i - 1) ? 'bg-white' : 'bg-white/50'"
+                class="w-3 h-3 rounded-full"
+              ></button>
+            </template>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Modal -->
-  <div id="modalOverlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-    
-    <!-- Modal Content -->
-    <div id="modalContent" class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 opacity-0 scale-95 transition-all duration-300 relative">
-      
-      <!-- Close Button -->
-      <button id="closeModalBtn" class="absolute top-3 right-4 text-gray-400 hover:text-gray-900 dark:hover:text-white">
-        ✕
-      </button>
-      
-      <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-        <div class="flex flex-col items-center justify-center space-y-2">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-blue-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-          </svg>
-          <h1 class="text-2xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white">
-            TimeWise
-          </h1>
-        </div>
-        <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-          Create an account
-        </h1>
-        <form class="space-y-4 md:space-y-6" id="RegistrationForm">
-          <div>
-            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-            <input type="email" name="email" id="email" required placeholder="name@company.com"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
+    <!-- Modal -->
+    <div
+      id="modalOverlay"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+    >
+      <!-- Modal Content -->
+      <div
+        id="modalContent"
+        class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 opacity-0 scale-95 transition-all duration-300 relative"
+      >
+        <!-- Close Button -->
+        <button
+          id="closeModalBtn"
+          class="absolute top-3 right-4 text-gray-400 hover:text-gray-900 dark:hover:text-white"
+        >
+          ✕
+        </button>
+
+        <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+          <div class="flex flex-col items-center justify-center space-y-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-10 h-10 text-blue-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+            </svg>
+            <h1
+              class="text-2xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white"
+            >
+              TimeWise
+            </h1>
           </div>
-          <div>
-            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-            <input type="password" name="password" id="password" required placeholder="••••••••"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
-          </div>
-          <div>
-            <label for="confirm-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
-            <input type="password" name="confirm-password" id="confirm-password" required placeholder="••••••••"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"/>
-          </div>
-          <div class="flex items-start">
-            <div class="flex items-center h-5">
-              <input id="terms" type="checkbox" required
-                class="w-4 h-4 border border-gray-300 rounded bg-gray-50 dark:bg-gray-700 dark:border-gray-600"/>
-            </div>
-            <div class="ml-3 text-sm">
-              <label for="terms" class="font-light text-gray-500 dark:text-gray-300">I accept the <a class="font-medium text-primary-600 hover:underline dark:text-primary-500" href="#">Terms and Conditions</a></label>
-            </div>
-          </div>
-          <button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700">
+          <h1
+            class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
+          >
             Create an account
-          </button>
-          <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-            Already have an account? <a href="#" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</a>
-          </p>
-        </form>
+          </h1>
+          <form class="space-y-4 md:space-y-6" id="RegistrationForm">
+            <div>
+              <label
+                for="email"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Your email</label
+              >
+              <input
+                type="email"
+                name="email"
+                id="email"
+                required
+                placeholder="name@company.com"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+              />
+            </div>
+            <div>
+              <label
+                for="password"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Password</label
+              >
+              <input
+                type="password"
+                name="password"
+                id="password"
+                required
+                placeholder="••••••••"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+              />
+            </div>
+            <div>
+              <label
+                for="confirm-password"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Confirm password</label
+              >
+              <input
+                type="password"
+                name="confirm-password"
+                id="confirm-password"
+                required
+                placeholder="••••••••"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+              />
+            </div>
+            <div class="flex items-start">
+              <div class="flex items-center h-5">
+                <input
+                  id="terms"
+                  type="checkbox"
+                  required
+                  class="w-4 h-4 border border-gray-300 rounded bg-gray-50 dark:bg-gray-700 dark:border-gray-600"
+                />
+              </div>
+              <div class="ml-3 text-sm">
+                <label
+                  for="terms"
+                  class="font-light text-gray-500 dark:text-gray-300"
+                  >I accept the
+                  <a
+                    class="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                    href="#"
+                    >Terms and Conditions</a
+                  ></label
+                >
+              </div>
+            </div>
+            <button
+              type="submit"
+              class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700"
+            >
+              Create an account
+            </button>
+            <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+              Already have an account?
+              <a
+                href="#"
+                class="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                >Login here</a
+              >
+            </p>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
-  <!-- Modal JS -->
-  <script>
+    <!-- Modal JS -->
+    <script>
       const openModalBtn = document.getElementById('openModalBtn');
       const modalOverlay = document.getElementById('modalOverlay');
       const modalContent = document.getElementById('modalContent');
       const closeModalBtn = document.getElementById('closeModalBtn');
-    
+
       openModalBtn.addEventListener('click', () => {
         setTimeout(() => {
           modalOverlay.classList.remove('hidden');
-    
+
           // animate modal content
           requestAnimationFrame(() => {
             modalContent.classList.remove('opacity-0', 'scale-95');
@@ -196,17 +325,17 @@
           });
         }, 100); // 500ms delay
       });
-    
+
       closeModalBtn.addEventListener('click', () => {
         closeModal();
       });
 
-        modalOverlay.addEventListener('click', (e) => {
+      modalOverlay.addEventListener('click', (e) => {
         if (e.target === modalOverlay) {
           closeModal();
         }
       });
-      
+
       function closeModal() {
         modalContent.classList.add('opacity-0', 'scale-95');
         modalContent.classList.remove('opacity-100', 'scale-100');
@@ -220,57 +349,56 @@
           closeModal();
         }
       });
-     
 
-      //Register Function 
-      document.getElementById("RegistrationForm").addEventListener("submit", function(event) {
-        event.preventDefault();
+      //Register Function
+      document
+        .getElementById('RegistrationForm')
+        .addEventListener('submit', function (event) {
+          event.preventDefault();
 
-        const formData = new FormData(this);
-        const email = formData.get('email');
-        const password = formData.get('password');
-        const confirmpassword = formData.get('confirm-password');
-        if (password == confirmpassword){
-        fetch('/register-action', {
-          method: 'POST',
-          headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          email,
-          password,
-          confirmPassword
-         })
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data.success){
-             Swal.fire({
+          const formData = new FormData(this);
+          const email = formData.get('email');
+          const password = formData.get('password');
+          const confirmpassword = formData.get('confirm-password');
+          if (password == confirmpassword) {
+            fetch('/register-action', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                email,
+                password,
+                confirmPassword,
+              }),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                if (data.success) {
+                  Swal.fire({
                     icon: 'success',
                     title: 'Success!',
                     text: data.message,
-                }).then(() => {
-                  closeModalBtn.click(); // Redirect after success
-                });
-            } else {
-                Swal.fire({
+                  }).then(() => {
+                    closeModalBtn.click(); // Redirect after success
+                  });
+                } else {
+                  Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
                     text: data.message,
-                });
-            }
-        })
-        .catch(error => console.error('Error-Message:', error));
-        }
-        else{
-          Swal.fire({
-            icon: 'Error',
-            title: 'Password Error',
-            text:  'Password and Confirm Password do not match'
-          })
-        }
-    });
-  </script>
-  
-</body>
+                  });
+                }
+              })
+              .catch((error) => console.error('Error-Message:', error));
+          } else {
+            Swal.fire({
+              icon: 'Error',
+              title: 'Password Error',
+              text: 'Password and Confirm Password do not match',
+            });
+          }
+        });
+    </script>
+  </body>
 </html>

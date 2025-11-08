@@ -7,4 +7,4 @@ const userSchema = new mongoose.Schema({
   resetCodeExpires: Date,
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('User', userSchema, 'User');
